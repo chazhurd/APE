@@ -1,7 +1,7 @@
 # EWU APE Website Deployment
 Contributors:
 - Asher Mancinelli
--
+- Jose Garcia
 -
 -
 
