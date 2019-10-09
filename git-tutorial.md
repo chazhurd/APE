@@ -28,8 +28,8 @@ We now have two remote repositories to track from: my main repo, and each person
 
 Before working, each person must be on the most up-to-date developement branch of my main repo with this:
 ```bash
+git pull --all
 git checkout dev
-git pull upstream dev
 ```
 This pulls any changes to the developement branch of the main repo down to your computer.
 
