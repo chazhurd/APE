@@ -10,7 +10,7 @@
 		ape_database.sql
 
 3.	Give execute permission to script.sh
-		chmod +x script.sh
+		`chmod +x script.sh`
 4.	Run script.sh. The script will do the followings:
 		a.	Install PHP CURL
 		b.	Install PHP Pear
