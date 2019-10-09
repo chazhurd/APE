@@ -1,0 +1,103 @@
+<div class="container-fluid"> 
+    <form id="main-form" class="form-horizontal"> 
+        <div class="form-group" style="margin-top:15px"> 
+            <label for="catGraderLimit" class="col-sm-3 control-label">Grader Limit per Category:</label> 
+            <div class="col-sm-9"> 
+                <input type="text" class="form-control" id="catGraderLimit" name="catGraderLimit"/> 
+            </div> 
+        </div> 
+        <div class="form-group"> 
+            <label for="pointDiffRange" class="col-sm-3 control-label">Allowable Score Discrepancy:</label> 
+            <div class="col-sm-9"> 
+                <input type="text" class="form-control" id="pointDiffRange" name="pointDiffRange"/> 
+            </div> 
+        </div>
+        <div class="form-group"> 
+            <label for="contactName" class="col-sm-3 control-label">Admin Contact Name:</label> 
+            <div class="col-sm-9"> 
+                <input type="text" class="form-control" id="contactName" name="contactName"/> 
+            </div> 
+        </div> 
+        <div class="form-group"> 
+            <label for="contactEmail" class="col-sm-3 control-label">Admin Contact Email:</label> 
+            <div class="col-sm-9"> 
+                <input type="text" class="form-control" id="contactEmail" name="contactEmail"/> 
+            </div> 
+        </div> 
+        <div class="form-group"> 
+            <label for="fallStart" class="col-sm-3 control-label">Fall Quarter Start Date:</label> 
+            <div class="col-sm-9"> 
+                <div class="input-group date">
+                    <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD" id="fallStart"/> 
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                </div>
+            </div> 
+        </div> 
+        <div class="form-group"> 
+            <label for="fallEnd" class="col-sm-3 control-label">Fall Quarter End Date:</label> 
+            <div class="col-sm-9"> 
+                <div class="input-group date">
+                    <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD" id="fallEnd"/> 
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                </div>
+            </div> 
+        </div> 
+        <div class="form-group"> 
+            <label for="winterStart" class="col-sm-3 control-label">Winter Quarter Start Date:</label> 
+            <div class="col-sm-9"> 
+                <div class="input-group date">
+                    <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD" id="winterStart"/> 
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                </div>
+            </div> 
+        </div> 
+        <div class="form-group"> 
+            <label for="winterEnd" class="col-sm-3 control-label">Winter Quarter End Date:</label> 
+            <div class="col-sm-9"> 
+                <div class="input-group date">
+                    <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD" id="winterEnd"/> 
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                </div>
+            </div> 
+        </div> 
+        <div class="form-group"> 
+            <label for="springStart" class="col-sm-3 control-label">Spring Quarter Start Date:</label> 
+            <div class="col-sm-9"> 
+                <div class="input-group date">
+                    <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD" id="springStart"/> 
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                </div>
+            </div> 
+        </div> 
+        <div class="form-group"> 
+            <label for="springEnd" class="col-sm-3 control-label">Spring Quarter End Date:</label> 
+            <div class="col-sm-9"> 
+                <div class="input-group date">
+                    <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD" id="springEnd"/> 
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                </div>
+            </div> 
+        </div> 
+        <div class="form-group"> 
+            <label for="summerStart" class="col-sm-3 control-label">Summer Quarter Start Date:</label> 
+            <div class="col-sm-9"> 
+                <div class="input-group date">
+                    <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD" id="summerStart"/> 
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                </div>
+            </div> 
+        </div> 
+        <div class="form-group"> 
+            <label for="summerEnd" class="col-sm-3 control-label">Summer Quarter End Date:</label> 
+            <div class="col-sm-9"> 
+                <div class="input-group date">
+                    <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD" id="summerEnd"/> 
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
+                </div>
+            </div> 
+        </div> 
+    </form> 
+    <form> 
+        <button type="button" class="btn btn-primary pull-right" disabled="true" id="submit-button" style="margin-bottom: 15px">Save Changes</button> 
+    </form>
+</div>
