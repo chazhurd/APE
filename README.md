@@ -12,12 +12,12 @@
 3.	Give execute permission to script.sh
 		`chmod +x script.sh`
 4.	Run script.sh. The script will do the followings:
-		a.	Install PHP CURL
-		b.	Install PHP Pear
-		c.	Install Pear Mail
-		d.	Create database ape_database, user ape_user, and import data
-		e.	Copy APE website to Apache HTML directory
-		f.	Add APE cron jobs
+-	Install PHP CURL
+-	Install PHP Pear
+-	Install Pear Mail
+-	Create database ape_database, user ape_user, and import data
+-	Copy APE website to Apache HTML directory
+-	Add APE cron jobs
 
 ## Running Developement Server:
 
