@@ -1,4 +1,10 @@
 # EWU APE Website Deployment
+Contributors:
+- Asher Mancinelli
+-
+-
+-
+
 
 ## Assumed installed: Apache, PHP, MariaDB
 
@@ -29,6 +35,3 @@ Run the following in root directory:
 php -S localhost:<port number>
 ```
 Navigate to `http://localhost:<port number>/ape/view/home`
-
-
-This is my contribution!!
