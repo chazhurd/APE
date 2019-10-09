@@ -1,4 +1,4 @@
-### EWU APE Website Deployment
+# EWU APE Website Deployment
 
 ## Assumed installed: Apache, PHP, MariaDB
 
