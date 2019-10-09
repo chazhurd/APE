@@ -1,0 +1,24 @@
+[Wed Oct  9 14:45:19 2019] ::1:55347 [200]: /ape/view/home
+[Wed Oct  9 14:45:19 2019] ::1:55348 [200]: /ape/view/css/summernote.css
+[Wed Oct  9 14:45:19 2019] ::1:55355 [200]: /ape/view/js/summernote.min.js
+[Wed Oct  9 14:45:19 2019] ::1:55351 [200]: /ape/view/img/horizontal-logo-transparent-150x50.png
+[Wed Oct  9 14:45:19 2019] ::1:55352 [200]: /ape/view/css/custom.css
+[Wed Oct  9 14:45:19 2019] ::1:55353 [200]: /ape/view/js/script.js
+[Wed Oct  9 14:45:19 2019] ::1:55354 [200]: /ape/view/js/build_table.js
+[Wed Oct  9 14:45:19 2019] ::1:55356 [200]: /ape/view/js/bootstrap-notify.min.js
+[Wed Oct  9 14:45:19 2019] ::1:55357 [200]: /ape/view/home/student_home_script.js
+[Wed Oct  9 14:45:19 2019] ::1:55358 [200]: /ape/util/get_cur_user_info.php?is_client=true
+[Wed Oct  9 14:45:19 2019] ::1:55359 [200]: /ape/location/get_all_locations.php?requester_id=000&requester_type=000&requester_session_id=000 - Uncaught Error: Call to a member function prepare() on null in /Users/manc568/Downloads/APE/Deliverables/ape/util/sql_exe.php:19
+Stack trace:
+#0 /Users/manc568/Downloads/APE/Deliverables/ape/auth/user_auth.php(50): sqlExecute('SELECT disabled...', Array, true)
+#1 /Users/manc568/Downloads/APE/Deliverables/ape/location/get_all_locations.php(22): user_auth('000', '000', Array, '000')
+#2 {main}
+  thrown in /Users/manc568/Downloads/APE/Deliverables/ape/util/sql_exe.php on line 19
+[Wed Oct  9 14:45:19 2019] ::1:55360 [200]: /ape/homepage/get_all_sections.php?requester_id=000&requester_type=000&requester_session_id=000&request=get_all - Uncaught Error: Call to a member function prepare() on null in /Users/manc568/Downloads/APE/Deliverables/ape/util/sql_exe.php:19
+Stack trace:
+#0 /Users/manc568/Downloads/APE/Deliverables/ape/auth/user_auth.php(50): sqlExecute('SELECT disabled...', Array, true)
+#1 /Users/manc568/Downloads/APE/Deliverables/ape/homepage/get_all_sections.php(21): user_auth('000', '000', Array, '000')
+#2 {main}
+  thrown in /Users/manc568/Downloads/APE/Deliverables/ape/util/sql_exe.php on line 19
+[Wed Oct  9 14:45:19 2019] ::1:55361 [200]: /ape/view/img/favicon/manifest.json
+[Wed Oct  9 14:45:19 2019] ::1:55362 [200]: /ape/view/img/favicon/favicon.ico
