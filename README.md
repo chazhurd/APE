@@ -6,7 +6,7 @@
 2.	Cd into the extracted directory. You should see this files and directory:
 ```bash
 > ls
-ape
+ape/
 ape_crob_jobs
 script.sh
 ape_database.sql
