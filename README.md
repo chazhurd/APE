@@ -1,6 +1,6 @@
-EWU APE Website Deployment
+### EWU APE Website Deployment
 
-Assumed installed: Apache, PHP, MariaDB
+## Assumed installed: Apache, PHP, MariaDB
 
 1.	Extract the zip file.
 2.	Cd into the extracted directory. You should see this files and directory:
@@ -19,7 +19,7 @@ Assumed installed: Apache, PHP, MariaDB
 		e.	Copy APE website to Apache HTML directory
 		f.	Add APE cron jobs
 
-Running Developement Server:
+## Running Developement Server:
 
 Run the following in root directory:
 ```bash
