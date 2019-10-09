@@ -18,3 +18,11 @@ Assumed installed: Apache, PHP, MariaDB
 		d.	Create database ape_database, user ape_user, and import data
 		e.	Copy APE website to Apache HTML directory
 		f.	Add APE cron jobs
+
+Running Developement Server:
+
+Run the following in root directory:
+```bash
+php -S localhost:<port number>
+```
+Navigate to `http://localhost:<port number>/ape/view/home`
