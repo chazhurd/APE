@@ -1,10 +1,9 @@
 # EWU APE Website Deployment
 Contributors:
 - Asher Mancinelli
+- Robert Moreno
+- Chaz Hurd
 - Jose Garcia
--
--
-
 
 ## Assumed installed: Apache, PHP, MariaDB
 
