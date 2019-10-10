@@ -88,3 +88,10 @@ to 'compare and pull' from your branch to my repo. Make sure you select the `dev
 Now you have submitted a pull request. From here, we can all look at the changes you made and make comments on individual lines.
 From here we decide if we want to use the changes, and if so I will merge your branch onto my `dev` branch, and the next
 time everyone works we will all see the changes.
+
+## Some helpful commands
+
+This command will give you some pretty graphics to help you understand the history of your branch:
+```bash
+git log --graph
+```
