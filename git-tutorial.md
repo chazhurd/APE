@@ -26,12 +26,16 @@ We now have two remote repositories to track from: my main repo, and each person
 
 ## Step 2: Making a Change
 
+IMPORTANT:
+----
 Before working, each person must be on the most up-to-date developement branch of my main repo with this:
 ```bash
-git pull --all
 git checkout dev
+git pull upstream master
+git pull upstream dev
 ```
 This pulls any changes to the developement branch of the main repo down to your computer.
+----
 
 Now you have a change to make, but first you have to create a new branch to add these changes to.
 To do that, use the command:
