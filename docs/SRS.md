@@ -100,29 +100,17 @@ intuitive, more secure, well defined, and complete. It will provide our clients 
 interface in which they can administer the APE in a smooth manner.
 
 ### 2.2 User Classes and Characteristics
-Student:
-
-A student will login to the system using SSO, view available exams,
-register and unregister as needed, and view their test score.
-
-Grader:
-
-A grader will submit grades for completed APEs that are assigned to
-them and enter them into the system. The grader will be able to edit
-already submitted grades while the exams are in “grading” state.
-
-Teacher:
-
-A teacher will be able to upload a file containing their class roster
-and instantaneously register their entire class for an APE. The APE
-will be created and graded by the teacher or specified graders.
-
+- Student:
+    A student will login to the system using SSO, view available exams, register and unregister as needed, and view their test score.
+- Grader:
+    A grader will submit grades for completed APEs that are assigned to them and enter them into the system.
+    The grader will be able to edit already submitted grades while the exams are in “grading” state.
+- Teacher:
+    A teacher will be able to upload a file containing their class roster and instantaneously register their entire class for an APE. 
+    The APE will be created and graded by the teacher or specified graders.
 Admin:
-
-The admin will have complete control of the entire system and will
-be permitted to, create/edit/archive exams, add/remove exam
-locations, manually add/remove accounts of any type, and generate
-reports. There can be a maximum 2 of this type of account.
+    The admin will have complete control of the entire system and will be permitted to, create/edit/archive exams, add/remove exam locations, manually add/remove accounts of any type, and generate reports.
+    There can be a maximum 2 of this type of account.
 
 ### 2.3 Operating Environment
 OE-1:
