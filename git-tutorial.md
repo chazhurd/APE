@@ -34,7 +34,8 @@ git checkout dev
 git pull upstream master
 git pull upstream dev
 ```
-This pulls any changes to the developement branch of the main repo down to your computer.
+This pulls any changes to the master and developement branches of the main repo down to your computer.
+
 ----
 
 Now you have a change to make, but first you have to create a new branch to add these changes to.
