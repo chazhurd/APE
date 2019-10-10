@@ -101,83 +101,50 @@ interface in which they can administer the APE in a smooth manner.
 
 ### 2.2 User Classes and Characteristics
 - Student:
-    A student will login to the system using SSO, view available exams, register and unregister as needed, and view their test score.
+    - A student will login to the system using SSO, view available exams, register and unregister as needed, and view their test score.
 - Grader:
-    A grader will submit grades for completed APEs that are assigned to them and enter them into the system.
-    The grader will be able to edit already submitted grades while the exams are in “grading” state.
+    - A grader will submit grades for completed APEs that are assigned to them and enter them into the system.
+    - The grader will be able to edit already submitted grades while the exams are in “grading” state.
 - Teacher:
-    A teacher will be able to upload a file containing their class roster and instantaneously register their entire class for an APE. 
-    The APE will be created and graded by the teacher or specified graders.
-Admin:
-    The admin will have complete control of the entire system and will be permitted to, create/edit/archive exams, add/remove exam locations, manually add/remove accounts of any type, and generate reports.
-    There can be a maximum 2 of this type of account.
+    - A teacher will be able to upload a file containing their class roster and instantaneously register their entire class for an APE. 
+    - The APE will be created and graded by the teacher or specified graders.
+- Admin:
+    - The admin will have complete control of the entire system and will be permitted to, create/edit/archive exams, add/remove exam locations, manually add/remove accounts of any type, and generate reports.
+    - There can be a maximum 2 of this type of account.
 
 ### 2.3 Operating Environment
-OE-1:
+- OE1: 
+    - The system will have compatibility with Microsoft Internet Explorer, Microsoft Edge, Google Chrome, Mozilla Firefox, and Apple Safari.
+- OE2: 
+    - The system will operate on a development server provided by the Computer Science Department with the following environment configuration:
+    - PHP 5.6.x
+    - Apache 2.4.x
+    - MariaDB 10.1.x
+- OE3:
+    - The system will allow user access through any internet connected computer.
 
-The system will have compatibility with Microsoft Internet Explorer,
-Microsoft Edge, Google Chrome, Mozilla Firefox, and Apple Safari.
+### 2.4 Design and Implementation Constraints
+- CO1: 
+    - The system shall use MariaDB 10.1.x as its database.
+- CO2:
+    - The scripts written for the system shall be in PHP 5 or JavaScript with jQuery library usage.  
+- CO3: 
+    - All HTML files involved in the system shall be compatible with current XHTML versions.
 
-OE-2:
-
-The system will operate on a development server provided by the
-Computer Science Department with the following environment
-configuration:
-PHP 5.6.x
-Apache 2.4.x
-MariaDB 10.1.x
-
-OE-3:
-
-The system will allow user access through any internet connected
-computer.
-
-2.4 Design and Implementation Constraints
-CO-1:
-
-The system shall use MariaDB 10.1.x as its database.
-
-CO-2:
-
-The scripts written for the system shall be in PHP 5 or JavaScript with
-jQuery library usage.
-
-CO-3:
-
-All HTML files involved in the system shall be compatible with current
-XHTML versions.
-
-2.5 Assumptions and Dependencies
-AS-1:
-
-It can be assumed that there will be no more than two administrator
-accounts and a minimum of one at all times.
-
-AS-2:
-
-It can be assumed that four grader accounts minimum will meet the
-needs of the client. Two different sets of eyes per two categories.
-
-AS-3:
-
-It can be assumed that a production server that meets the needs and
-specifications mentioned prior will be available for the deployment of the
-final product.
-
-DE-1:
-
-The system is dependent on a consistent internet connection in which the
-server is connected to.
-
-DE-2:
-
-The system is dependent on multiple types of tools such as, PHP,
-JavaScript, MariaDB, and Apache.
-
-DE-3:
-
-The system is dependent on a database server, in which information will
-be stored and retrieved from.
+### 2.5 Assumptions and Dependencies
+- AS1: 
+    - It can be assumed that there will be no more than two administrator accounts and a minimum of one at all times.
+- AS2: 
+    - It can be assumed that four grader accounts minimum will meet the needs of the client.
+    - Two different sets of eyes per two categories.
+- AS3: 
+    - It can be assumed that a production server that meets the needs and specifications mentioned prior will be available for the deployment of the final product.
+- DE1: 
+    - The system is dependent on a consistent internet connection in which the server is connected to.
+- DE2: 
+    - The system is dependent on multiple types of tools such as, PHP, JavaScript, MariaDB, and Apache.  
+- DE3: 
+    - The system is dependent on a database server, in which information will be stored and retrieved from.
 
 ## Account Features
 
@@ -197,19 +164,13 @@ Database.
 
 #### 3.2.1 Functionality
 The student account will be capable of doing the following:
-
-
-
-
-Register for an APE
-- Students will be able to register for any of the APEs available to them.
-
-Unregister for an APE
-- Students will be able to unregister for any APE that they are registered for.
-
-View their grade for an APE
-- Students will be notified once grades for a specific APE are posted.
-- Students will be able to log into their account and view their grade for any APE they have taken.
+- Register for an APE: 
+    - Students will be able to register for any of the APEs available to them.
+- Unregister for an APE:
+    - Students will be able to unregister for any APE that they are registered for.
+- View their grade for an APE
+    - Students will be notified once grades for a specific APE are posted.
+    - Students will be able to log into their account and view their grade for any APE they have taken.
 
 #### 3.2.2 Registration for APE
 Once a student account type logs in, the system will automatically redirect them to the Student
@@ -235,15 +196,13 @@ information will be visible to the grader to help keep grading impartial.
 #### 3.3.1 Functionality
 The grader account will be capable of the following:
 
-Viewing APEs assigned to them
-- Graders will only be able to access and grade APEs that the Administrator account or a teacher account has assigned to them.
-
-Grading an APE
-- The grader will have access to all the seat numbers associated with a given APE.
-
-Submitting Scores
-- The Grader will be able to enter and save scores for APEs assigned to them.
-- Once an APE is fully graded and submitted to the Admin, the grades cannot be edited by the grader.
+- Viewing APEs assigned to them
+    - Graders will only be able to access and grade APEs that the Administrator account or a teacher account has assigned to them.
+- Grading an APE
+    - The grader will have access to all the seat numbers associated with a given APE.
+- Submitting Scores
+    - The Grader will be able to enter and save scores for APEs assigned to them.
+    - Once an APE is fully graded and submitted to the Admin, the grades cannot be edited by the grader.
 
 #### 3.3.2 Grading an APE
 When the grader is ready to grade an APE that is assigned to them, they will click on the APE and see a list of seats.
@@ -266,19 +225,15 @@ The teacher account type is intended for professors in the department that teach
 The teacher account will be capable of the following:
 
 - Creating an APE
-
-This APE will only be visible to the teacher that created the APE, assigned graders at the
-appropriate state, and the administrator.
-No students will have access to this APE.
+    - This APE will only be visible to the teacher that created the APE, assigned graders at the appropriate state, and the administrator.
+    - No students will have access to this APE.
 - The teacher that creates this APE will also have the ability to grade it and add/remove students from it.
-Upload list of students to auto register them for created APE
-- Teachers will be able to submit a .csv file to the system with the following information in
-order:
-- EWU ID number
-- Last Name, First Name
-- EWU Email Address
-- The system will then be able to register these students for the APE created by the
-teacher.
+    - Upload list of students to auto register them for created APE
+- Teachers will be able to submit a .csv file to the system with the following information in order:
+    - EWU ID number
+    - Last Name, First Name
+    - EWU Email Address
+    - The system will then be able to register these students for the APE created by the teacher.
 
 #### 3.4.2 Creating and Grading an APE
 The teacher will have the ability to create an APE specifically for their class. They will be able to
@@ -321,8 +276,7 @@ the following information:
     - Graders that were assigned to the APE and the grades they gave
 
 Upload APEs for students to practice
-- Upload APEs to the student homepage with downloadable links for students to access.
-Add, edit, and remove category types
+- Upload APEs to the student homepage with downloadable links for students to access.  Add, edit, and remove category types
 - These categories will be available for teacher accounts to use when they are creating
 their APEs.
 - The max number of points possible will be set by the administrator at APE creation.
