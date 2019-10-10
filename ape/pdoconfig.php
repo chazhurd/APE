@@ -11,10 +11,14 @@
 	 */
 	function openDB()
 	{
+		// $server="localhost";
+		// $user="ape_user";
+		// $pass="X5mlOhMZyTKheq1Q";
+		// $database="ape_database";
 		$server="localhost";
-		$user="ape_user";
-		$pass="X5mlOhMZyTKheq1Q";
-		$database="ape_database";
+		$user="user";
+		$pass="password";
+		$database="database";
 		$conn = null;
 		
 		try
