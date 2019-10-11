@@ -2,6 +2,13 @@
 Software Requirement Specifications
 
 Originally: Pavandeep K Bolena, Justyn Jones, Jordan Sampilo
+
+Contributors:
+- Asher Mancinelli
+- Robert Moreno
+- Jose Garcia
+- Chaz Hurd
+
 TEAM 1: APE Continuation
 
 ## Table of Contents
@@ -75,18 +82,17 @@ The requirements listed in this document are intended to be fulfilled and in pro
 iteration.
 
 ### 1.3 Intended Audience
-This documentation’s intended audience are Tom Capaul, Stu Steiner, Dan Tappan, Connie Bean, and
-faculty of EWU’s Computer Science department. It also is intended for future groups responsible for
-improving this software.
+This documentation’s intended audience are Tom Capaul, Brian Kamp, and faculty of EWU’s Computer Science department.
+It also is intended for future groups responsible for improving this software.
 
 ### 1.4 Project Scope
-The scope of this project pertains to the APE Management System software’s specifications and
-requirements. The software we develop will be intuitive and simple for any intended users. It will allow
-students to register for APEs, unregister for APEs, and view their grades once they’ve been completed.
-The software will allow graders to submit and edit grades unbiasedly for said exams. It will also allow
-teachers to do their own APE for their CSCD 211 classes; they will be able to upload their student roster
-to automatically register the whole class, and grade the APEs. Admins will be permitted to manually add
-and remove all types of accounts, view grades, publish exams, and generate reports.
+The scope of this project pertains to the APE Management System software’s specifications and requirements.
+The software we develop will be intuitive and simple for any intended users.
+It will allow students to register for APEs, unregister for APEs, and view their grades once they’ve been completed.
+The software will allow graders to submit and edit grades unbiasedly for said exams.
+It will also allow teachers to do their own APE for their CSCD 211 classes; they will be able to upload their student roster to automatically register the whole class, and grade the APEs.
+Admins will be permitted to manually add and remove all types of accounts, view grades, publish exams, and generate reports.
+Our team will be expanding upon the work of the previous group and will eventually be cloud hosted to help the department's budget.
 
 ### 1.5 References
 The current version of this software which this project intends to improve and replace can be found
@@ -116,7 +122,7 @@ interface in which they can administer the APE in a smooth manner.
 - OE1: 
     - The system will have compatibility with Microsoft Internet Explorer, Microsoft Edge, Google Chrome, Mozilla Firefox, and Apple Safari.
 - OE2: 
-    - The system will operate on a development server provided by the Computer Science Department with the following environment configuration:
+    - The system will operate on a development server provided by the Computer Science Department with the following environment configuration until a cloud hosting solution is developed:
     - PHP 5.6.x
     - Apache 2.4.x
     - MariaDB 10.1.x
@@ -130,6 +136,8 @@ interface in which they can administer the APE in a smooth manner.
     - The scripts written for the system shall be in PHP 5 or JavaScript with jQuery library usage.  
 - CO3: 
     - All HTML files involved in the system shall be compatible with current XHTML versions.
+- CO4:
+    - The source will be tracked with a github repo with all contributions being reviewed by the team in pull requests.
 
 ### 2.5 Assumptions and Dependencies
 - AS1: 
@@ -407,14 +415,19 @@ Internet Explorer, Microsoft Edge, Google Chrome, Mozilla Firefox, and Apple Saf
 ## Non-Functional Requirements
 
 ### 7.1 Security Requirements
-SR-1:
-SR-2:
-SR-3:
-SR-4:
-SR-5:
+- SR-1:
+    - All passwords will be encrypted using SHA-3.
+- SR-2:
+    - Passwords are never an output from the database.
+- SR-3:
+    - The student that is being graded will be kept hidden from the grader.
+- SR-4:
+    - Any user must log in before performing any action.
+- SR-5:
+    - No student may view any other student’s data.
 
-All passwords will be encrypted using SHA-3.
-Passwords are never an output from the database.
-The student that is being graded will be kept hidden from the grader.
-Any user must log in before performing any action.
-No student may view any other student’s data.
+
+
+
+
+
