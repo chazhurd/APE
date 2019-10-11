@@ -345,7 +345,8 @@ There will be default report options that the administrator can select like the 
     - For a given APE with students’ EWU IDs and EWU emails Students Registered
     - A list of students who are registered for a given APE with their names, EWU ID numbers, and email
 - The administrator will be able to add report types and specify what information they want the report to include (names, IDs, emails, addresses, phone numbers, scores, pass/fail, attempts, assigned seats).
-- Grades
+
+## 4 Grades
 
 Once grades are submitted by the graders, the system will calculate whether the margin of difference between the different grades given is within a range specified by the APE creator.
 Depending on the results, the system will pass/fail the student, or flag the student for administrator review.
