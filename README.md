@@ -34,3 +34,11 @@ Run the following in root directory:
 php -S localhost:<port number>
 ```
 Navigate to `http://localhost:<port number>/ape/view/home`
+
+## Running Docker Container
+
+```bash
+docker build -t ape .
+docker run -p 8080:80 ape
+```
+Navigate to `localhost:8080/ape/view`
