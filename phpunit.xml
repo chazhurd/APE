@@ -1,0 +1,5 @@
+<testsuites>
+  <testsuite name="ape">
+      <file>tests/DatabaseTests.php</file>
+  </testsuite>
+</testsuites>
