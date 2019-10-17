@@ -13,6 +13,19 @@ class DatabaseTests extends TestCase
     /** @test */
     public function TestOpenDB()
     {
+        $conn = openDB();
+        $this->assertNotNull($conn);
+    }
+
+    /** @test */
+    public function TestUserList()
+    {
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function TestSaveAdminGradeInput()
+    {
         $this->assertTrue(true);
     }
 }
