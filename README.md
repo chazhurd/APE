@@ -1,5 +1,4 @@
 # EWU APE Website Deployment
-[![Build Status](https://travis-ci.org/ashermancinelli/ape.svg?branch=dev)](https://travis-ci.org/ashermancinelli/ape)
 
 Contributors:
 - Asher Mancinelli
