@@ -1,20 +1,19 @@
 language: php
-dist: trusty
 
-matrix:
-    include:
-        php:
-            - 7.1
-            - 7.2
+php:
+    - 7.1
+    - 7.1.9
+    - 7.2
 
 before_script:
+    - curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
     - travis_retry composer self-update
       #    - travis_retry composer global require "fxp/composer-asset-plugin:~1.0.0"
     - travis_retry composer install --prefer-source --no-interaction
 
 
 script:
-    - vendor/bin/phpunit --coverage-clover=coverage.xml
+    - phpunit --configuration phpunit.xml
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)
