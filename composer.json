@@ -1,0 +1,25 @@
+{
+    "name": "ashermancinelli/ape",
+    "scripts": {
+        "test": [
+            "phpunit tests"
+        ]
+    },
+    "require": {
+        "pear/pear": "^1.10",
+        "pear/mail": "^1.4",
+        "curl/curl": "^2.2"
+    },
+    "require-dev": {
+        "pear/pear": "^1.10",
+        "pear/mail": "^1.4",
+        "curl/curl": "^2.2",
+        "phpunit/phpunit": "^7"
+    },
+    "authors": [
+        {
+            "name": "Asher Mancinelli",
+            "email": "ashermancinelli@gmail.com"
+        }
+    ]
+}
