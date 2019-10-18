@@ -17,12 +17,11 @@ jobs:
       - docker tag ape-autobuild-travis $DOCKER_USERNAME/ape-autobuild-travis
       - docker push $DOCKER_USERNAME/ape-autobuild-travis
     - stage: Run unittests
-      before_script:
-      - curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
-      - travis_retry composer self-update
-      - travis_retry composer install --prefer-source --no-interaction
+      install:
+        - travis_retry composer self-update
+        - travis_retry composer install --prefer-source --no-interaction
       script:
-      - composer test
+        - composer test
       after_script:
-      - bash <(curl -s https://codecov.io/bash)
+        - bash <(curl -s https://codecov.io/bash)
 
