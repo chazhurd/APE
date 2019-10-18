@@ -9,13 +9,6 @@ php:
 
 jobs:
   include:
-    - stage: Build and push docker image
-      script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t ape-autobuild-travis .
-      - docker images
-      - docker tag ape-autobuild-travis $DOCKER_USERNAME/ape-autobuild-travis:$TRAVIS_BRANCH
-      - docker push $DOCKER_USERNAME/ape-autobuild-travis:$TRAVIS_BRANCH
     - stage: Run unittests
       install:
         - travis_retry composer self-update
@@ -24,4 +17,11 @@ jobs:
         - composer test
       after_script:
         - bash <(curl -s https://codecov.io/bash)
+    - stage: Build and push docker image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t ape-autobuild-travis .
+      - docker images
+      - docker tag ape-autobuild-travis $DOCKER_USERNAME/ape-autobuild-travis-$TRAVIS_BRANCH
+      - docker push $DOCKER_USERNAME/ape-autobuild-travis-$TRAVIS_BRANCH
 
