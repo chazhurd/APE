@@ -1,5 +1,14 @@
 # EWU APE Website Deployment
 
+## Build Status
+
+### Master
+[![Build Status](https://travis-ci.org/ashermancinelli/ape.svg?branch=master)](https://travis-ci.org/ashermancinelli/ape)
+[![CircleCI](https://circleci.com/gh/ashermancinelli/ape/tree/master.svg?style=svg)](https://circleci.com/gh/ashermancinelli/ape/tree/master)
+
+### Dev
+[![Build Status](https://travis-ci.org/ashermancinelli/ape.svg?branch=dev)](https://travis-ci.org/ashermancinelli/ape)
+
 Contributors:
 - Asher Mancinelli
 - Robert Moreno
