@@ -29,7 +29,7 @@ jobs: # a collection of steps
           name: Build and Deploy Docker Image
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker build -t ashermancinelli/ape-circle-$CIRCLE_BRANCH 
+            docker build -t ashermancinelli/ape-circle-$CIRCLE_BRANCH .
             docker push ashermancinelli/ape-circle-$CIRCLE_BRANCH
       - save_cache: # special step to save the dependency cache with the `composer.lock` cache key template
           key: composer-v1-{{ checksum "composer.lock" }}
