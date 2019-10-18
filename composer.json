@@ -2,7 +2,7 @@
     "name": "ashermancinelli/ape",
     "scripts": {
         "test": [
-            "phpunit tests"
+            "vendor/phpunit/phpunit/phpunit"
         ]
     },
     "require": {
