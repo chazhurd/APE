@@ -2,7 +2,7 @@
     "name": "ashermancinelli/ape",
     "scripts": {
         "test": [
-            "vendor/phpunit/phpunit/phpunit"
+            "./vendor/bin/phpunit --bootstrap ./vendor/autoload.php"
         ]
     },
     "require": {
