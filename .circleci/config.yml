@@ -1,43 +1,23 @@
-version: 2
-jobs:
-    build:
-        docker:
-            image: php:7.1-apache
-        working_directory: ~/ape
-        steps:
-            - run:
-                name: Install system packages
-                command: apt-get update && apt-get -y install git
-            - run:
-                name: Install php packages
-                command: docker-php-ext-install pdo
-            - checkout
-            - restore_cache:
-                keys:
-                    - v1-dependencies-{{ checksum "composer.json" }}
-                    # fallback to using the latest cache if no exact match is found
-                    - v1-dependencies-
-            - run: composer install -n --prefer-dist
-            - save_cache:
-                paths:
-                    - ./vendor
-                key: v1-dependencies-{{ checksum "composer.json" }}
-            - run:
-                name: Install Composer
-                command: |
-                    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-                    php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
-                    php composer-setup.php
-                    php -r "unlink('composer-setup.php');"
-            - run:
-                name: Display PHP information
-                command: |
-                    php -v
-                    composer --version
-            - run:
-                name: Install project dependencies
-                command: composer install --prefer-source --no-interaction
-            - run:
-                name: Run unittests
-                command: composer test
-        
+version: 2 # use CircleCI 2.0
+
+jobs: # a collection of steps
+  build: # runs not using Workflows must have a `build` job as entry point
+    docker: # run the steps with Docker 
+      - image: circleci/php:7.2-apache # ...with this image as the primary container; this is where all `steps` will run
+    working_directory: ~/ # directory where steps will run
+    steps: # a set of executable commands
+      - checkout # special step to check out source code to working directory
+      - run: sudo apt install -y libsqlite3-dev zlib1g-dev
+      - run: sudo docker-php-ext-install zip pdo
+      - run: sudo composer self-update
+      - restore_cache: # special step to restore the dependency cache if `composer.lock` does not change
+          keys:
+            - composer-v1-{{ checksum "composer.lock" }}
+            # fallback to using the latest cache if no exact match is found (See https://circleci.com/docs/2.0/caching/)
+            - composer-v1-
+      - run: composer install -n --prefer-dist
+      - run: composer test
+      - save_cache: # special step to save the dependency cache with the `composer.lock` cache key template
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
