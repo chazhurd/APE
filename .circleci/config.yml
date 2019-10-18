@@ -17,19 +17,19 @@ jobs: # a collection of steps
       - run: composer install -n --prefer-dist
       - run: composer test
       - run:
-        name: Install Docker Client
-        command: |
-          set -x
-          VER="17.03.0-ce"
-          curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
-          tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-          mv /tmp/docker/* /usr/bin
+          name: Install Docker Client
+          command: |
+            set -x
+            VER="17.03.0-ce"
+            curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
+            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+            mv /tmp/docker/* /usr/bin
       - run:
-        name: Build and Deploy Docker Image
-        command: |
-          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-          docker build -t ashermancinelli/ape-circle-$CIRCLE_BRANCH 
-          docker push ashermancinelli/ape-circle-$CIRCLE_BRANCH
+          name: Build and Deploy Docker Image
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker build -t ashermancinelli/ape-circle-$CIRCLE_BRANCH 
+            docker push ashermancinelli/ape-circle-$CIRCLE_BRANCH
       - save_cache: # special step to save the dependency cache with the `composer.lock` cache key template
           key: composer-v1-{{ checksum "composer.lock" }}
           paths:
