@@ -1,0 +1,14 @@
+FROM mysql:latest
+
+ENV MYSQL_ROOT_PASSWORD=password
+ENV MYSQL_USER=user
+ENV MYSQL_PASSWORD=password
+ENV MYSQL_DATABASE=ape_database
+
+EXPOSE 3306
+
+COPY ./.docker/setup-db.sql /
+
+COPY ./.docker/entrypoint-db.sh /
+RUN chmod +x entrypoint-db.sh
+ENTRYPOINT ["./entrypoint-db.sh"]

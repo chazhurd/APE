@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: ./.docker/Dockerfile.ape
+        ports:
+            - "8080:80"
+    db:
+        image: mysql:latest
+        command: --init-file /application/.docker/setup.sql
+        volumes:
+            - ./:/application/
+        ports:
+            - "3307:3306"
