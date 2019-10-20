@@ -1,9 +1,8 @@
 FROM ubuntu:latest
-MAINTAINER Dan Pupius <dan@pupi.us>
 
 # Install apache, PHP, and supplimentary programs. openssh-server, curl, and lynx-cur are for debugging the container.
 RUN apt-get update && apt-get -y upgrade && DEBIAN_FRONTEND=noninteractive apt-get -y install \
-    apache2 php7.2 libapache2-mod-php7.2 php7.2-curl php7.2-mysql
+    apache2 php7.2 libapache2-mod-php7.2 php7.2-curl php7.2-mysql mysql-client
 
 # Enable apache mods.
 RUN a2enmod php7.2
@@ -27,7 +26,7 @@ EXPOSE 80
 ADD . /var/www/ape
 
 # Update the default apache site with the config we created.
-ADD apache.conf /etc/apache2/sites-enabled/000-default.conf
+ADD .docker/apache/apache.conf /etc/apache2/sites-enabled/000-default.conf
 
 # By default start up apache in the foreground, override with /bin/bash for interative.
 ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]

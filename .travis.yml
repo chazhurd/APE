@@ -18,10 +18,13 @@ jobs:
         - composer test
       after_script:
         - bash <(curl -s https://codecov.io/bash)
+    - stage: Build with database
+      script:
+      - docker-compose -f docker-compose.yml build
     - stage: Build and push docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t ape-autobuild-travis .
+      - docker build -t ape-autobuild-travis -f .docker/Dockerfile.ape .
       - docker images
       - docker tag ape-autobuild-travis $DOCKER_USERNAME/ape-autobuild-travis-$TRAVIS_BRANCH
       - docker push $DOCKER_USERNAME/ape-autobuild-travis-$TRAVIS_BRANCH

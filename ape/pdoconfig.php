@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Database connection configurations
  * @author: Tu Nguyen
@@ -15,11 +16,16 @@
 		// $user="ape_user";
 		// $pass="X5mlOhMZyTKheq1Q";
 		// $database="ape_database";
-		$server="localhost";
-		$user="user";
-		$pass="password";
-		$database="database";
-		$conn = null;
+        //
+		// $server="35.199.183.112";
+		// $user="Asher";
+		// $pass="asher";
+		// $database="ape_database";
+        $server     = "db";
+        $user       = "user";
+        $pass       = "password";
+        $database   = "ape_database";
+		$conn       = null;
 		
 		try
 		{
