@@ -8,6 +8,8 @@ jobs:
     working_directory: ~/ape
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/ape
       - setup_remote_docker
       - run: sudo docker-php-ext-install zip pdo
       - run: sudo composer self-update
@@ -20,12 +22,18 @@ jobs:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
+      - persist_to_workspace:
+          root: .
+          paths: .
   test:
     docker:
       - image: circleci/php:7.2-apache
     parallelism: 4
     working_directory: ~/ape
     steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
       - run: composer test
   build:
     docker:
@@ -33,6 +41,9 @@ jobs:
     parallelism: 4
     working_directory: ~/ape
     steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
       - run: docker-compose -f docker-compose.yml build
   deploy:
     docker:
@@ -40,6 +51,9 @@ jobs:
     parallelism: 4
     working_directory: ~/ape
     steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
       - run:
           name: Build and Deploy Docker Image
           command: |
