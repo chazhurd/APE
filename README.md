@@ -8,7 +8,6 @@
 
 ### Dev
 [![Build Status](https://travis-ci.org/ashermancinelli/ape.svg?branch=dev)](https://travis-ci.org/ashermancinelli/ape)
-[![CircleCI](https://circleci.com/gh/ashermancinelli/ape/tree/dev.svg?style=svg)](https://circleci.com/gh/ashermancinelli/ape/tree/dev)
 
 Contributors:
 - Asher Mancinelli
