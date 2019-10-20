@@ -1,46 +1,57 @@
 from flask import Flask, request
 import mysql.connector as myc
 
+class ApeConn:
+    def __init__(self):
+        self.con = myc.connect(
+            user='user',
+            host='db',
+            database='ape_database',
+            password='password'
+        )
+        self.cursor = self.con.cursor()
+    def __enter__(self):
+        return self.cursor
+
+    def __exit__(self, type, value, tb):
+        if tb is None:
+            self.con.commit()
+        else:
+            self.rollback()
+
+    def __del__(self):
+        self.cursor.close()
+        self.con.close()
+
+
 app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
 def root_handler():
-    con = myc.connect(
-        user='user',
-        host='db',
-        database='ape_database',
-        password='password'
-    )
-    cursor = con.cursor()
-    if request.method == 'POST':
-        cursor.execute('select max(cat_id) from category;')
-        id = cursor.fetchall()[0][0] + 1
-        name = request.form.get('name')
-        q = 'insert into category (`cat_id`, `name`) values (%s, %s);'
-        cursor.execute(q, (id, name))
-        con.commit()
-        cursor.close()
-        con.close()
-        return 'Successfully submitted new data!<br>'
-    else:
-        res = cursor.execute('select * from category;')
-        s = ''
-        for i in cursor:
-            s += str(i) + '<br>'
-        print(res)
-        cursor.close()
-        con.close()
-        return f'''
+    with ApeConn() as cursor:
+        if request.method == 'POST':
+            q = request.form.get('query')
+            cursor.execute(q)
+            s = ''
+            for i in cursor:
+                s += str(i) + '<br><br>'
+            return f'''
+Next Query:
+<br><br>
 <form method="POST">
-    id: <input type="text" name="requester_id"><br>
-    type: <input type="text" name="requester_type"><br>
-    session id: <input type="text" name="requester_session_id"><br>
-    name: <input type="text" name="name"><br>
+    query: <input type="text" name="query"><br>
     <input type="submit" value="Submit"><br>
 </form>
-
-<h3> Current values: </h3>
+<br><br>
+Query results:<br><br>
 {s}
+'''
+        else:
+            return f'''
+<form method="POST">
+    query: <input type="text" name="query"><br>
+    <input type="submit" value="Submit"><br>
+</form>
 '''
 
 

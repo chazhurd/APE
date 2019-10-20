@@ -17,16 +17,20 @@ services:
             - db
         ports:
             - "8081:80"
-              #    categoryapp:
-              #        build:
-              #            context: .
-              #            dockerfile: ./.docker/Dockerfile.category
-              #        depends_on:
-              #            - db
     db:
-        image: mysql:latest
-        command: --init-file /application/.docker/setup.sql
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
         volumes:
-            - ./:/application/
+            - ./.docker/datadump/:/docker-entrypoint-initdb.d/
         ports:
             - "3307:3306"
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+          - "8888:8080"
+
