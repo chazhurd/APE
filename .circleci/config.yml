@@ -34,6 +34,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/ape
+      - setup_remote_docker
       - run: composer test
   build:
     docker:
@@ -44,6 +45,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/ape
+      - setup_remote_docker
       - run: docker-compose -f docker-compose.yml build
   deploy:
     docker:
@@ -54,6 +56,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/ape
+      - setup_remote_docker
       - run:
           name: Build and Deploy Docker Image
           command: |
