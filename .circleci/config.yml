@@ -1,28 +1,62 @@
 version: 2 # use CircleCI 2.0
 
-jobs: # a collection of steps
-  build: # runs not using Workflows must have a `build` job as entry point
-    docker: # run the steps with Docker 
-      - image: circleci/php:7.2-apache # ...with this image as the primary container; this is where all `steps` will run
-    working_directory: ~/ape # directory where steps will run
-    steps: # a set of executable commands
-      - checkout # special step to check out source code to working directory
+jobs:
+  install:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
       - setup_remote_docker
       - run: sudo docker-php-ext-install zip pdo
       - run: sudo composer self-update
-      - restore_cache: # special step to restore the dependency cache if `composer.lock` does not change
+      - restore_cache:
           keys:
-            - composer-v1-{{ checksum "composer.lock" }}
-            # fallback to using the latest cache if no exact match is found (See https://circleci.com/docs/2.0/caching/)
-            - composer-v1-
-      - run: 
-          name: Composer install and Unittests
-          command: |
-            composer install -n --prefer-dist
-            composer test
-      - run:
-          name: Docker compose
-          command: docker-compose -f docker-compose.yml build
+          - v1-dependencies-{{ checksum "composer.json" }}
+          - v1-dependencies-
+      - run: composer install -n --prefer-dist
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
+      - persist_to_workspace:
+          root: .
+          paths: .
+  test:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
+      - run: composer test
+  build:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
+      - run: docker-compose -f docker-compose.yml build
+  deploy:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
       - run:
           name: Build and Deploy Docker Image
           command: |
@@ -31,7 +65,18 @@ jobs: # a collection of steps
                 -t ashermancinelli/ape-autobuild-circle-$CIRCLE_BRANCH \
                 -f .docker/Dockerfile.ape .
             docker push ashermancinelli/ape-autobuild-circle-$CIRCLE_BRANCH
-      - save_cache: # special step to save the dependency cache with the `composer.lock` cache key template
-          key: composer-v1-{{ checksum "composer.lock" }}
-          paths:
-            - vendor
+workflows:
+  version: 2
+  all:
+    jobs:
+      - install
+      - test:
+          requires:
+            - install
+      - build:
+          requires:
+            - install
+      - deploy:
+          requires:
+            - build
+            - test
