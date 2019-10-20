@@ -17,19 +17,24 @@ Contributors:
 
 ## Running Developement Server:
 
-Run the following in root directory:
+If it's all php/frontend specific, run the following in root directory:
 ```bash
-php -S localhost:<port number>
+> php -S localhost:<port number>
 ```
-Navigate to `http://localhost:<port number>/ape/view/home`
 
-## Running Docker Container
-
+Or if you have docker you could run:
 ```bash
-docker build -t ape .
-docker run -p 8080:80 ape
+> docker build -t ape-local -f .docker/Dockerfile.ape .
+> docker run -p <port number>:80 ape-local
 ```
-Navigate to `localhost:8080/ape/view`
+
+Or with docker-compose if you need database functionality:
+```bash
+> docker-compose build
+> docker-compose up
+```
+
+And then navigate to `http://localhost:<port number>/ape/view/home`
 
 ## Docs from previous team
 > ## Assumed installed: Apache, PHP, MariaDB
