@@ -16,10 +16,10 @@ jobs:
           - v1-dependencies-{{ checksum "composer.json" }}
           - v1-dependencies-
       - run: composer install -n --prefer-dist
-       - save_cache:
-           paths:
-             - ./vendor
-           key: v1-dependencies-{{ checksum "composer.json" }}
+      - save_cache:
+          paths:
+            - ./vendor
+          key: v1-dependencies-{{ checksum "composer.json" }}
   test:
     docker:
       - image: circleci/php:7.2-apache
