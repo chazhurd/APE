@@ -57,7 +57,13 @@ workflows:
   version: 2
   all:
     jobs:
-      - install
-      - test
-      - build
-      - deploy
+      - install:
+      - test:
+          requires:
+            - install
+      - build:
+          requires:
+            - test
+      - deploy:
+          requires:
+            - build
