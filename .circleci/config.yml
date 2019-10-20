@@ -20,6 +20,7 @@ jobs:
       - run: 
           name: Composer install and Unittests
           command: |
+            ls && pwd
             composer install -n --prefer-dist
             composer test
   build:
