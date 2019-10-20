@@ -1,0 +1,7 @@
+FROM python
+
+RUN pip install mysql-connector-python flask
+COPY ./ape/category-rest/* /src/
+EXPOSE 80
+
+ENTRYPOINT ["python3", "src/main.py"]

@@ -1,4 +1,4 @@
-version: 2 # use CircleCI 2.0
+version: 2
 
 jobs:
   install:
@@ -36,7 +36,7 @@ jobs:
           at: ~/ape
       - setup_remote_docker
       - run: composer test
-  build:
+  build_mainapp:
     docker:
       - image: circleci/php:7.2-apache
     parallelism: 4
@@ -46,7 +46,35 @@ jobs:
       - attach_workspace:
           at: ~/ape
       - setup_remote_docker
+      - run: docker-compose -f docker-compose.yml down -v
+      - run: docker-compose -f docker-compose.yml build mainapp
+      - run: docker-compose -f docker-compose.yml up -d mainapp
+  build_db:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
+      - run: docker-compose -f docker-compose.yml down -v
+      - run: docker-compose -f docker-compose.yml build db
+      - run: docker-compose -f docker-compose.yml up -d db
+  build_all:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
+      - run: docker-compose -f docker-compose.yml down -v
       - run: docker-compose -f docker-compose.yml build
+      - run: docker-compose -f docker-compose.yml up -d mainapp db
   deploy:
     docker:
       - image: circleci/php:7.2-apache
@@ -61,10 +89,9 @@ jobs:
           name: Build and Deploy Docker Image
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker build \
-                -t ashermancinelli/ape-autobuild-circle-$CIRCLE_BRANCH \
-                -f .docker/Dockerfile.ape .
-            docker push ashermancinelli/ape-autobuild-circle-$CIRCLE_BRANCH
+            docker-compose down -v
+            docker-compose build mainapp
+            docker-compose push mainapp
 workflows:
   version: 2
   all:
@@ -73,10 +100,32 @@ workflows:
       - test:
           requires:
             - install
-      - build:
+      - build_db:
           requires:
             - install
+      - build_mainapp:
+          requires:
+            - install
+      - build_all:
+          requires:
+            - build_db
+            - build_mainapp
       - deploy:
           requires:
-            - build
+            - build_all
             - test
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - install
+      - test
+      - build_db
+      - build_mainapp
+      - build_all
+      - deploy
