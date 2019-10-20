@@ -11,27 +11,29 @@ jobs:
       - setup_remote_docker
       - run: sudo docker-php-ext-install zip pdo
       - run: sudo composer self-update
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "composer.json" }}
+          - v1-dependencies-
+      - run: composer install -n --prefer-dist
+       - save_cache:
+           paths:
+             - ./vendor
+           key: v1-dependencies-{{ checksum "composer.json" }}
   test:
     docker:
       - image: circleci/php:7.2-apache
     parallelism: 4
     working_directory: ~/ape
     steps:
-      - run: 
-          name: Composer install and Unittests
-          command: |
-            ls && pwd
-            composer install -n --prefer-dist
-            composer test
+      - run: composer test
   build:
     docker:
       - image: circleci/php:7.2-apache
     parallelism: 4
     working_directory: ~/ape
     steps:
-      - run:
-          name: Docker compose
-          command: docker-compose -f docker-compose.yml build
+      - run: docker-compose -f docker-compose.yml build
   deploy:
     docker:
       - image: circleci/php:7.2-apache
