@@ -33,6 +33,8 @@ Or with docker-compose if you need database functionality:
 > docker-compose build
 > docker-compose up
 ```
+Note: if you use `docker-compose`, you will have to run `docker-compose down -v` after every run so the database is re-initialized correctly on startup.
+The `-v` flag resets the volumes so the init scripts are ran correctly.
 
 And then navigate to `http://localhost:<port number>/ape/view/home`
 

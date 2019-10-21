@@ -67,7 +67,7 @@ CREATE TABLE `assigned_grader` (
 --
 
 CREATE TABLE `category` (
-  `cat_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cat_id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

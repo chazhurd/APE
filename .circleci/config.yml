@@ -46,7 +46,9 @@ jobs:
       - attach_workspace:
           at: ~/ape
       - setup_remote_docker
+      - run: docker-compose -f docker-compose.yml down -v
       - run: docker-compose -f docker-compose.yml build
+      - run: docker-compose -f docker-compose.yml run
   deploy:
     docker:
       - image: circleci/php:7.2-apache
