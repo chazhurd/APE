@@ -2,6 +2,7 @@ version: '3'
 
 services:
     mainapp:
+        image: ashermancinelli/ape-mainapp-autobuild
         build:
             context: .
             dockerfile: ./.docker/Dockerfile.ape
