@@ -36,7 +36,33 @@ jobs:
           at: ~/ape
       - setup_remote_docker
       - run: composer test
-  build:
+  build_mainapp:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
+      - run: docker-compose -f docker-compose.yml down -v
+      - run: docker-compose -f docker-compose.yml build mainapp
+      - run: docker-compose -f docker-compose.yml up mainapp
+  build_db:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
+      - run: docker-compose -f docker-compose.yml down -v
+      - run: docker-compose -f docker-compose.yml build db
+      - run: docker-compose -f docker-compose.yml up db
+  build_all:
     docker:
       - image: circleci/php:7.2-apache
     parallelism: 4
@@ -48,7 +74,7 @@ jobs:
       - setup_remote_docker
       - run: docker-compose -f docker-compose.yml down -v
       - run: docker-compose -f docker-compose.yml build
-      - run: docker-compose -f docker-compose.yml run
+      - run: docker-compose -f docker-compose.yml up
   deploy:
     docker:
       - image: circleci/php:7.2-apache
@@ -75,12 +101,20 @@ workflows:
       - test:
           requires:
             - install
-      - build:
+      - build_db:
           requires:
             - install
+      - build_mainapp:
+          requires:
+            - install
+      - build_all:
+          requires:
+            - install
+            - build_db
+            - build_mainapp
       - deploy:
           requires:
-            - build
+            - build_all
             - test
   nightly:
     triggers:
@@ -93,4 +127,7 @@ workflows:
     jobs:
       - install
       - test
-      - build
+      - build_db
+      - build_mainapp
+      - build_all
+      - deploy
