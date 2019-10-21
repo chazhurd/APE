@@ -48,7 +48,7 @@ jobs:
       - setup_remote_docker
       - run: docker-compose -f docker-compose.yml down -v
       - run: docker-compose -f docker-compose.yml build mainapp
-      - run: docker-compose -f docker-compose.yml up mainapp -d
+      - run: docker-compose -f docker-compose.yml up -d mainapp
   build_db:
     docker:
       - image: circleci/php:7.2-apache
@@ -61,7 +61,7 @@ jobs:
       - setup_remote_docker
       - run: docker-compose -f docker-compose.yml down -v
       - run: docker-compose -f docker-compose.yml build db
-      - run: docker-compose -f docker-compose.yml up db -d
+      - run: docker-compose -f docker-compose.yml up -d db
   build_all:
     docker:
       - image: circleci/php:7.2-apache
@@ -74,7 +74,7 @@ jobs:
       - setup_remote_docker
       - run: docker-compose -f docker-compose.yml down -v
       - run: docker-compose -f docker-compose.yml build
-      - run: docker-compose -f docker-compose.yml up -d
+      - run: docker-compose -f docker-compose.yml -d up
   deploy:
     docker:
       - image: circleci/php:7.2-apache
@@ -109,7 +109,6 @@ workflows:
             - install
       - build_all:
           requires:
-            - install
             - build_db
             - build_mainapp
       - deploy:
