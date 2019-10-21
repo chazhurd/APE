@@ -17,12 +17,28 @@ class DatabaseTests extends TestCase
      */
     public function TestOpenDB()
     {
-        /* Currently will hang with unwhitelisted IP addr
-         * Dummy test for now
         $conn = openDB();
         $this->assertNotNull($conn);
-         */
-        $this->assertTrue(true);
+    }
+
+    /**
+     * @test
+     * @depends TestOpenDB
+     */
+    public function TestTableStructure()
+    {
+        $tableNames = [
+            ["category", 4],
+            ["category", 4],
+            ["category", 4],
+            ["category", 4],
+        ]
+        for ($tableNames as $table) {
+            $res = sqlExecute("select count(*) from :table;",
+                        array(":table" => $table[0]),
+                        true);
+            $this->assertEqual($res, $table[1]);
+        }
     }
 
     /** 
@@ -38,6 +54,14 @@ class DatabaseTests extends TestCase
     {
         $this->assertTrue(true);
     }
+
+    /** 
+     * @test
+     */
+    public function TestExample()
+    {
+    }
+
 }
 
 ?>
