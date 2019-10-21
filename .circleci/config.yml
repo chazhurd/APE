@@ -74,7 +74,7 @@ jobs:
       - setup_remote_docker
       - run: docker-compose -f docker-compose.yml down -v
       - run: docker-compose -f docker-compose.yml build
-      - run: docker-compose -f docker-compose.yml -d up
+      - run: docker-compose -f docker-compose.yml up -d mainapp db
   deploy:
     docker:
       - image: circleci/php:7.2-apache
@@ -89,10 +89,9 @@ jobs:
           name: Build and Deploy Docker Image
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker build \
-                -t ashermancinelli/ape-autobuild-circle-$CIRCLE_BRANCH \
-                -f .docker/Dockerfile.ape .
-            docker push ashermancinelli/ape-autobuild-circle-$CIRCLE_BRANCH
+            docker-compose down -v
+            docker-compose build mainapp
+            docker-compose push mainapp
 workflows:
   version: 2
   all:
