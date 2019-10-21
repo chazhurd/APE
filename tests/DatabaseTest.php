@@ -33,7 +33,7 @@ class DatabaseTests extends TestCase
             ["category", 4],
             ["category", 4],
         ]
-        for ($tableNames as $table) {
+        foreach ($tableNames as $table) {
             $res = sqlExecute("select count(*) from :table;",
                         array(":table" => $table[0]),
                         true);
@@ -53,13 +53,6 @@ class DatabaseTests extends TestCase
     public function TestSaveAdminGradeInput()
     {
         $this->assertTrue(true);
-    }
-
-    /** 
-     * @test
-     */
-    public function TestExample()
-    {
     }
 
 }
