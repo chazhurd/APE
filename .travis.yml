@@ -24,8 +24,7 @@ jobs:
     - stage: Build and push docker image
       script:
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker build -t ape-autobuild-travis -f .docker/Dockerfile.ape .
-      - docker images
-      - docker tag ape-autobuild-travis $DOCKER_USERNAME/ape-autobuild-travis-$TRAVIS_BRANCH
-      - docker push $DOCKER_USERNAME/ape-autobuild-travis-$TRAVIS_BRANCH
-
+      - docker-compose down -v
+      - docker-compose build mainapp
+      - docker-compose build db
+      - docker-compose up -d mainapp db
