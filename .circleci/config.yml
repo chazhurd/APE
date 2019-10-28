@@ -1,41 +1,6 @@
 version: 2
 
 jobs:
-  install:
-    docker:
-      - image: circleci/php:7.2-apache
-    parallelism: 4
-    working_directory: ~/ape
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/ape
-      - setup_remote_docker
-      - run: sudo docker-php-ext-install zip pdo
-      - run: sudo composer self-update
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "composer.json" }}
-          - v1-dependencies-
-      - run: composer install -n --prefer-dist
-      - save_cache:
-          paths:
-            - ./vendor
-          key: v1-dependencies-{{ checksum "composer.json" }}
-      - persist_to_workspace:
-          root: .
-          paths: .
-  test:
-    docker:
-      - image: circleci/php:7.2-apache
-    parallelism: 4
-    working_directory: ~/ape
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ~/ape
-      - setup_remote_docker
-      - run: composer test
   build_mainapp:
     docker:
       - image: circleci/php:7.2-apache
@@ -75,6 +40,19 @@ jobs:
       - run: docker-compose -f docker-compose.yml down -v
       - run: docker-compose -f docker-compose.yml build
       - run: docker-compose -f docker-compose.yml up -d mainapp db
+  test:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
+      - run: docker-compose -f docker-compose.yml build mainapp db
+      - run: docker-compose -f docker-compose.yml up -d mainapp db
+      - run: docker exec ape_mainapp_1 bash -c cd /var/www/ape && composer test
   deploy:
     docker:
       - image: circleci/php:7.2-apache
@@ -96,23 +74,17 @@ workflows:
   version: 2
   all:
     jobs:
-      - install
-      - test:
-          requires:
-            - install
-      - build_db:
-          requires:
-            - install
-      - build_mainapp:
-          requires:
-            - install
+      - build_db
+      - build_mainapp
       - build_all:
           requires:
             - build_db
             - build_mainapp
-      - deploy:
+      - test:
           requires:
             - build_all
+      - deploy:
+          requires:
             - test
   nightly:
     triggers:
@@ -123,7 +95,6 @@ workflows:
               only:
                 - master
     jobs:
-      - install
       - test
       - build_db
       - build_mainapp
