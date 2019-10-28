@@ -24,3 +24,4 @@ jobs:
       - docker-compose build mainapp
       - docker-compose build db
       - docker-compose up -d mainapp db
+
