@@ -1,0 +1,27 @@
+language: php
+
+services:
+    - docker
+    
+php:
+    - 7.2
+    - 7.3
+
+jobs:
+  include:
+    - stage: Run unittests
+      script:
+      - docker-compose down -v
+      - docker-compose build mainapp
+      - docker-compose up -d mainapp db
+      - docker exec -it ape_mainapp_1 bash -c cd /var/www/ape && composer test
+      after_script:
+        - bash <(curl -s https://codecov.io/bash)
+    - stage: Build and push docker image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker-compose down -v
+      - docker-compose build mainapp
+      - docker-compose build db
+      - docker-compose up -d mainapp db
+
