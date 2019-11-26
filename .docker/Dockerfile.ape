@@ -13,6 +13,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . /var/www/ape
 WORKDIR /var/www/ape
+RUN /usr/bin/composer update
 RUN /usr/bin/composer install -n
 
 # Enable apache mods.
