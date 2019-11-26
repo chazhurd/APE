@@ -97,8 +97,8 @@ if (class_exists(Google_Client))
  */
 
 $client = new Google_Client();
-$client->setAuthConfig('client_secret.json');
-$client->addScope(Google_Service_Drive::DRIVE_METADATA_READONLY);
+$client->setAuthConfig(__DIR__ . '/../../client_secret.json');
+$client->addScope('openid profile email');
 // $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
 $client->setRedirectUri('http://localhost:8080/ape/view/home');
 // offline access will give you both an access and refresh token so that
@@ -111,7 +111,8 @@ $client->setPrompt('consent');
 $client->setIncludeGrantedScopes(true);   // incremental auth
 
 $auth_url = $client->createAuthUrl();
+
+$_SESSION['loggedIn'] = true;
 // echo "<h3>" . $auth_url . "</h1>";
 header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
-
 ?>
