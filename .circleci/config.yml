@@ -1,0 +1,102 @@
+version: 2
+
+jobs:
+  build_mainapp:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
+      - run: docker-compose -f docker-compose.yml down -v
+      - run: docker-compose -f docker-compose.yml build mainapp
+      - run: docker-compose -f docker-compose.yml up -d mainapp
+  build_db:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
+      - run: docker-compose -f docker-compose.yml down -v
+      - run: docker-compose -f docker-compose.yml build db
+      - run: docker-compose -f docker-compose.yml up -d db
+  build_all:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
+      - run: docker-compose -f docker-compose.yml down -v
+      - run: docker-compose -f docker-compose.yml build
+      - run: docker-compose -f docker-compose.yml up -d mainapp db
+  test:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
+      - run: docker-compose -f docker-compose.yml build mainapp db
+      - run: docker-compose -f docker-compose.yml up -d mainapp db
+      - run: docker exec ape_mainapp_1 bash -c cd /var/www/ape && composer test
+  deploy:
+    docker:
+      - image: circleci/php:7.2-apache
+    parallelism: 4
+    working_directory: ~/ape
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/ape
+      - setup_remote_docker
+      - run:
+          name: Build and Deploy Docker Image
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker-compose down -v
+            docker-compose build mainapp
+            docker-compose push mainapp
+workflows:
+  version: 2
+  all:
+    jobs:
+      - build_db
+      - build_mainapp
+      - build_all:
+          requires:
+            - build_db
+            - build_mainapp
+      - test:
+          requires:
+            - build_all
+      - deploy:
+          requires:
+            - test
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - test
+      - build_db
+      - build_mainapp
+      - build_all
+      - deploy
