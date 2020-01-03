@@ -1,0 +1,30 @@
+language: php
+
+services:
+    - docker
+    
+php:
+    - 7.2
+    - 7.3
+
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install --prefer-source --no-interaction
+
+jobs:
+  include:
+    - stage: Run unittests
+      script:
+        - composer test
+      after_script:
+        - bash <(curl -s https://codecov.io/bash)
+    - stage: Build with database
+      script:
+      - docker-compose -f docker-compose.yml build
+    - stage: Build and push docker image
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker-compose down -v
+      - docker-compose build mainapp
+      - docker-compose build db
+      - docker-compose up -d mainapp db

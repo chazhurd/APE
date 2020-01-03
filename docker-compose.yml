@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+    mainapp:
+        image: ashermancinelli/ape-mainapp
+        build:
+            context: .
+            dockerfile: ./.docker/Dockerfile.ape
+        ports:
+            - "8080:80"
+        depends_on:
+            - db
+    pytest:
+        build:
+            context: .
+            dockerfile: ./.docker/Dockerfile.category
+        depends_on:
+            - db
+        ports:
+            - "8081:80"
+    db:
+        image: mysql
+        restart: always
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_ROOT_USER: rootuser
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+        volumes:
+            - ./.docker/datadump/:/docker-entrypoint-initdb.d/
+        ports:
+            - "3307:3306"
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+          - "8888:8080"

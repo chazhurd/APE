@@ -1,0 +1,511 @@
+/**
+ * CSS Styling
+ * @author: Aaron Griffis
+ * @version: 1.0
+ */
+
+@import url('//assets.ewu.edu/css/ewuserif.css');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+ 
+html {
+   position: relative;
+   min-height: 100%;
+}
+
+body {
+   margin-bottom: 70px;
+   font-family: 'Lato', sans-serif;
+}
+
+body > .container {
+   padding: 60px 15px 0;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: 'EWUserif300', Lato, sans-serif;
+}
+
+/*
+ * Top navigation
+ */
+.navbar {
+   background-color: #a10022;
+   border: 0;
+   padding-left: 20px;
+   padding-right: 20px;
+   margin-top: -15px;
+}
+
+.navbar .container{
+    display: inline-flex;
+    width: 100%;
+}
+
+.navbar .navbar-text {
+   color: white;
+}
+
+.navbar .pull-right
+{
+    margin-left: auto;
+}
+
+.navbar-text{
+    float: left;
+    width: 50%;
+    font-size: 15px;
+}
+
+.navbar .btn, .navbar .navbar-toggle{
+    margin: 15px 0;
+}
+
+.hamburger-menu
+{
+    margin-right: 20px;
+}
+
+.navbar-toggle
+{
+    border-color: #ccc;
+    background: white;
+}
+
+.main
+{
+    padding-top: 40px;
+}
+
+/*
+ * Sidebar
+ */
+.sidebar {
+   color: #ccc;
+   background-color: #333;
+   margin: 0;
+   border-width: 0;
+   z-index: 99;
+   position: fixed;
+   width: 100%;
+   overflow-x: hidden;
+    overflow-y: auto;
+   display: none;
+   height: 100%;
+   padding-bottom: 100px;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1035;
+        padding: 0px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        width: 200px;
+        display: block;
+        height: 100% !important;
+    }
+
+    .main {
+        padding-right: 15px;
+        padding-left: 215px;
+        padding-top: 40px;
+    }
+
+    .navbar>.container, .footer>.container {
+        padding-left: 200px;
+    }
+
+    .navbar-text{
+        font-size: 18px !important;
+        width: 100% !important;
+    }
+
+    .navbar .btn, .navbar .navbar-toggle{
+        margin: 8px 0;
+    }
+
+    .hamburger-menu
+    {
+        display: none;
+    }
+
+    .sidebar>.list-group-item:first-child
+    {
+        display: block !important;
+    }
+}
+
+.sidebar a img {
+    margin: 15px auto;
+}
+
+.sidebar .list-group {
+    margin-bottom: 0;
+}
+
+.sidebar .list-group-item {
+    border-radius: 0;
+    color: #ccc;
+    background-color: #333;
+    border: 1px solid #292929;
+    border-left: 0;
+    border-right: 0;
+}
+
+.sidebar>.list-group-item:first-child {
+    background: #a10022;
+    border-top: 0;
+    display: none;
+}
+
+.sidebar>.list-group-item:first-child:hover, .sidebar>.list-group-item:first-child:focus {
+    background: #790016;
+}
+
+.sidebar .list-group-item:last-child {
+    margin-bottom: -1px;
+}
+
+.sidebar .list-group-item:hover, .sidebar .list-group-item:focus {
+    color: #ccc;
+    background-color: #444;
+}
+
+.sidebar .list-group-item.user-wrapper {
+    border: 0;
+    text-align: center;
+}
+
+.sidebar .user {
+    display: inline-block;
+    text-align: left;
+    padding-top: 15px;
+}
+
+.sidebar .user-wrapper:hover, .sidebar .user-wrapper:focus {
+    background-color: inherit;
+}
+
+.sidebar>.user-cat {
+    background-color: #444;
+}
+
+.sidebar>.list-group>.list-group-item {
+    padding-left: 45px;
+}
+
+.sidebar .list-group-item.active {
+    color: #a10022;
+    background-color: #fff;
+}
+
+.sidebar .list-group-item.active:hover {
+    color: #a10022;
+    background-color: #fff;
+    border-color: #303030;
+}
+
+.sidebar .list-group-item.active .glyphicon {
+    color: #a10022;
+}
+
+.sidebar .glyphicon {
+    padding-right: 10px;
+}
+
+/*
+ * Accordion
+ */
+#accordion .panel-heading a {
+    display: block;
+    padding: 10px 15px;
+    margin: -10px -15px;
+}
+
+#accordion .panel-heading .h4:after {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114";
+    float: right;
+    color: grey;
+}
+#accordion .panel-heading .h4.collapsed:after {
+    content: "\e080";
+}
+
+/*
+ * Modal
+ */
+@media (min-width: 992px) {
+   #detail-modal .col-left {
+      border-right: 1px solid #e5e5e5;
+   }
+}
+
+.modal-header {
+   background-color: #f5f5f5;
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+}
+
+.modal-footer {
+   background-color: #f5f5f5;
+   border-bottom-left-radius: 5px;
+   border-bottom-right-radius: 5px;
+}
+
+#cat-table .graders .input-group {
+    margin-left: auto;
+   margin-bottom: 5px;
+}
+
+.cat-grader-row table tr>td {
+    padding: 5px 15px;
+}
+
+.cat-grader-row table tr>td.graders {
+    padding-bottom: 15px;
+}
+
+.grader-header>h4 {
+    margin: 0;
+    padding-top: 7px;
+}
+
+#roster-form .table-toolbar {
+    padding-top: 0px;
+}
+
+.help-block {
+    margin-bottom: 0;
+}
+
+/*
+ * Buttons
+ */
+.btn-label {
+   position: relative;
+   left: -12px;
+   display: inline-block;
+   padding: 6px 12px;
+   background: rgba(0,0,0,0.1);
+   border-radius: 3px 0 0 3px;
+}
+
+.btn-labeled {
+   padding-top: 0;
+   padding-bottom: 0;
+}
+
+/*
+ * Table
+ */
+.with-nav-tabs {
+   padding-bottom: 0;
+}
+
+.with-nav-tabs .nav-tabs {
+   border-bottom: none;
+}
+
+.modal .with-nav-tabs .nav-tabs {
+   padding-right: 15px;
+}
+
+.table-toolbar {
+   padding: 15px;
+}
+
+.table-toolbar>div {
+   position: relative;
+}
+
+.students-specific-btn {
+    margin-left: 10px;
+}
+
+.form-inline .has-feedback .form-control-feedback.clear-search {
+   cursor: pointer;
+   pointer-events: auto;
+   color: #ccc;
+   display: none;
+   right: 40px;
+   z-index: 100
+}
+
+.panel-default>.panel-heading .panel-title {
+   padding-top: 5px;
+   font-size: 20px;
+}
+
+.panel .table {
+   margin-bottom: 0;
+}
+
+.main-table>thead:first-child>tr:first-child>th {
+   border-top: 2px solid #ddd;
+}
+
+.main-table>thead th:not(:last-child) {
+   cursor: pointer;
+}
+
+.main-table>thead .glyphicon-triangle-top, .main-table>thead .glyphicon-triangle-bottom {
+   color: #ccc;
+   margin-left: 5px;
+   font-size: 10px;
+}
+
+.table>tbody>tr>td {
+   vertical-align: middle;
+}
+
+.table .cat-grader-row>td {
+   padding: 0;
+   border-top: 0;
+}
+
+#detail-modal .col-right>.panel>table th:not(:first-of-type) {
+   width: 1%;
+   white-space: nowrap;
+}
+
+.table .item-row td:last-child {
+   width: 1%;
+}
+
+.table .btn-group {
+    display: flex;
+    float: right;
+ }
+
+.table .btn-group .btn {
+    display: inline-block;
+    float: none;
+}
+
+.table .btn-group-justified .btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.table .btn-group-justified .btn-justified {
+    flex: 2;
+    padding: 0;
+}
+
+.table .btn-group .btn-justified span:first-of-type {
+    flex: 0;
+    left: -1px;
+}
+
+.table .btn-group .btn-justified span:last-of-type {
+    flex: 1;
+    padding: 0 12px;
+}
+
+.table .item-detail-row>td {
+   padding: 0;
+   border-top: 0;
+}
+
+.table .item-detail-row>td input {
+    display: inline-block;
+    width: auto;
+}
+
+.table .item-detail-row table th {
+   white-space: nowrap;
+   width: 1%;
+   text-align: right;
+   vertical-align: middle;
+}
+
+/*
+ * Footer
+ */
+.footer {
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+   /* Set the fixed height of the footer here */
+   height: 70px;
+   border-top: 1px solid #ddd;
+   color: #45525A;
+}
+
+.footer .container {
+   text-align: center;
+}
+
+.footer ul {
+   margin-top: 10px;
+}
+
+.footer li {
+   border-right: 1px solid #ddd;
+   padding: 0 10px;
+}
+
+.footer li:last-child {
+   border-right: none;
+}
+
+.footer li a {
+   color: #45525A;
+}
+
+
+/*
+ * Fixes
+ */
+.empty-panel-fix {
+   border-bottom: unset;
+}
+
+.checkbox-fix {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+input[type=file][hidden] {
+    display: none !important;
+}
+
+/*Tu*/
+
+.green-row {
+    background-color: #DFF0D8 !important;
+}
+
+.red-row {
+    background-color: #F2DEDE !important;
+}
+
+.grey-row {
+    background-color: #f5f5f5;
+}
+
+.red-bold-text {
+    color: #A94442 !important;
+    font-weight: bold;
+}
+
+.green-bold-text {
+    color: #3D773E !important;
+    font-weight: bold;
+}
+
+.cat-comment-input {
+    float: right;
+}
+
+.panel-body {
+    padding: 10px;
+}

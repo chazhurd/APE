@@ -1,0 +1,2 @@
+0 * * * * /usr/bin/wget --spider "http://localhost/ape/cron_job/hourly_job.php"
+0 0 * * * /usr/bin/wget --spider "http://localhost/ape/cron_job/daily_job.php"
