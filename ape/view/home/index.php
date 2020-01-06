@@ -1,4 +1,7 @@
 <?php 
+
+    use \Firebase\JWT\JWT;
+
     $_GET["is_client"] = False;
     require_once "../../util/get_cur_user_info.php";
     include_once __DIR__ . '/../../../vendor/autoload.php';
@@ -7,6 +10,17 @@
     $page = "";
     $jsArr = array();
     $title = "EWU APE Home";
+    $key = <<<MLS
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuS6GkOtm9kmk1flSzjVP
+TPD81eI8oXtsCNwEudbFr1PCGHZu6m2J2PQ6/hK0XCX3mXXrqqY6g2JuW2nf6Foo
+w+1CDVZL4FBBKIeZDfSkkMb3olTGN4WRerUB3j4ATbFFLg3SgmRsCliVuulbvAn8
+ETaWuIEPEPNQ/730PXP5zHFCUDIR6E03wWooc9YqjBKYreSFQPiuYF4/XgMGfWpF
+FIeWqTbcbl5MS0T0VdPQOWcj+4vnnRiGlwVa5QJvqSR1kh+O2wdqcBisRjpcpsUc
+lyJJrDiSP1PNtdKhKySRNIUC60uZST71LTTvI2gbSHofp/zrQGGNnG0tV47X6QbM
+WwIDAQAB
+-----END PUBLIC KEY-----
+MLS;
 
     if (isset($_GET["code"]))
     {
@@ -25,12 +39,18 @@
         ]);
         try {
             $ownerDetails = $provider->getResourceOwner($token);
-            printf('Hello %s!', $ownerDetails->getFirstName());
+            printf('Hello %s!\n', $ownerDetails->getFirstName());
 
             // This is the JWT of all the real data we want.
             // We'll have to get a decoder for JWT's to get
             // at all the actual data.
             var_dump($token->getValues());
+            $jwt = $token->getValues()['id_token'];
+            $jwt_arr = explode(".", $jwt);
+            $alg = base64_decode($jwt_arr[0]);
+            $decoded = JWT::decode($jwt, $key, array('RS256'));
+            var_export($decoded);
+            
         } catch (Exception $e) {
             exit('Something went wrong: ' . $e->getMessage());
         }
