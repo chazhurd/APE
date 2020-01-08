@@ -1,4 +1,4 @@
-# APE MANAGEMENT SYSTEM
+﻿# APE MANAGEMENT SYSTEM
 Software Requirement Specifications
 
 Originally: Pavandeep K Bolena, Justyn Jones, Jordan Sampilo
@@ -82,7 +82,7 @@ The requirements listed in this document are intended to be fulfilled and in pro
 iteration.
 
 ### 1.3 Intended Audience
-This documentation’s intended audience are Tom Capaul, Brian Kamp, and faculty of EWU’s Computer Science department.
+This documentation’s intended audience are Tom Capaul, Stu Steiner, and faculty of EWU’s Computer Science department.
 It also is intended for future groups responsible for improving this software.
 
 ### 1.4 Project Scope
@@ -90,7 +90,7 @@ The scope of this project pertains to the APE Management System software’s spe
 The software we develop will be intuitive and simple for any intended users.
 It will allow students to register for APEs, unregister for APEs, and view their grades once they’ve been completed.
 The software will allow graders to submit and edit grades unbiasedly for said exams.
-It will also allow teachers to do their own APE for their CSCD 211 classes; they will be able to upload their student roster to automatically register the whole class, and grade the APEs.
+It will also allow teachers to do their own APE for their CSCD 211 classes; they will be able to upload their student roster to automatically register the whole class, and grade the APEs. The Teacher will also e able to generate and export reports on the exams in CSV format.
 Admins will be permitted to manually add and remove all types of accounts, view grades, publish exams, and generate reports.
 Our team will be expanding upon the work of the previous group and will eventually be cloud hosted to help the department's budget.
 
@@ -114,6 +114,7 @@ interface in which they can administer the APE in a smooth manner.
 - Teacher:
     - A teacher will be able to upload a file containing their class roster and instantaneously register their entire class for an APE. 
     - The APE will be created and graded by the teacher or specified graders.
+    - The teacher will be able to generate, view and export reports in CSV format.
 - Admin:
     - The admin will have complete control of the entire system and will be permitted to, create/edit/archive exams, add/remove exam locations, manually add/remove accounts of any type, and generate reports.
     - There can be a maximum 2 of this type of account.
@@ -259,6 +260,11 @@ The teacher will have very similar rights when it comes to creating an APE, view
 The teacher will be able to make edits to final pass/fail grades if the student’s final score puts them in the “Under Review” state.
 The administrator has the ability to override any decisions made by the teacher when it comes to grades and passing/failing students.
 Once the administrator makes edits, the teacher cannot reverse those changes.
+
+### 3.4.4 This account type will have the ability to create, view, and download reports from the system. The system will be able to generate reports with the information specified by the Teacher. There will be Reports Section that the Teacher can select like the following:
+- Add ‘Generate Yearly Reports’ to Reports Section. (Students who completed the ape, what the pass rate is, what the average score per year is and the avg for each quarter individually)
+- Add ‘Number of Attempts Report’ to Reports Section and their respective scores.
+- Add ‘Export’ functionality that would generate a Report in CSV format.
 
 ### 3.5 Administrator
 There can only be a maximum 2 of this account type. With this account, the user has ultimate control
