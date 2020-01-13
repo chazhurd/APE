@@ -16,11 +16,7 @@
 		// $user="ape_user";
 		// $pass="X5mlOhMZyTKheq1Q";
 		// $database="ape_database";
-        //
-		// $server="35.199.183.112";
-		// $user="Asher";
-		// $pass="asher";
-		// $database="ape_database";
+
         $server     = "db";
         $user       = "user";
         $pass       = "password";
