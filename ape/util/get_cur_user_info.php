@@ -19,22 +19,6 @@
         getCurUserInfo($isClient);
     }
 
-    function getCurUserInfo($isClient)
-    {
-
-        $isDev = false;
-        $userInfo = array();
-
-        if($isClient)
-        {
-            echo json_encode($userInfo);
-        }
-        else {
-            return $userInfo;
-        }
-        
-    }
-
     function sessionSetup()
     {
         $stmt = "select `user_id` from `user` 

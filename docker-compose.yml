@@ -10,14 +10,14 @@ services:
             - "8080:80"
         depends_on:
             - db
-    pytest:
-        build:
-            context: .
-            dockerfile: ./.docker/Dockerfile.category
-        depends_on:
-            - db
-        ports:
-            - "8081:80"
+              #    pytest:
+              #        build:
+              #            context: .
+              #            dockerfile: ./.docker/Dockerfile.category
+              #        depends_on:
+              #            - db
+              #        ports:
+              #            - "8081:80"
     db:
         image: mysql
         restart: always
