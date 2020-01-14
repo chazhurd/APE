@@ -4,7 +4,7 @@
  * @author: Tu Nguyen
  * @version: 1.0
  */
-    require_once "../pdoconfig.php";
+    require_once(__DIR__ . "/../pdoconfig.php");
 
     /**
      * Executes a SQL query

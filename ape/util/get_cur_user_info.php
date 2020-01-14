@@ -1,29 +1,62 @@
 <?php
+/**
+ * Function that returns an array of current user information, includings:
+ * - userId
+ * - userType
+ * - userSession
+ * - userFname
+ * - userLname
+ * - userEmail
+ * @author: Tu Nguyen
+ * @version: 1.0
+ */
 
-function lookupUser()
-{
+    require_once 'sql_exe.php';
 
-    $stmt = "
-select * from user
-where user.f_name = :fn and
-    user.l_name = :ln;";
+    if(isset($_GET["is_client"]))
+    {
+        $isClient = $_GET["is_client"];
+        getCurUserInfo($isClient);
+    }
 
-    $user_info = $_SESSION["userInfo"];
+    function sessionSetup()
+    {
+        $stmt = "select `user_id` from `user` 
+            where `f_name` = ? and `l_name` = ?;";
 
-    $user = sqlExecute($stmt, array(
-            ':ln' => $user_info['given_name'],
-            ':fn' => $user_info['family_name']
-        ),
-        True
-    );
+        $user_id = sqlExecute($stmt, array(
+                $_SESSION["userInfo"]['given_name'],
+                $_SESSION["userInfo"]['family_name']
+            ),
+            True
+        );
 
-    // if $user["id"] is in the array of admin id's...
-    $_SESSION["userInfo"]["userType"] = "Admin";
+        if (count($user_id) === 0)
+        {
+            createUser();
+        }
+        else
+        {
+            $admin_ids = sqlExecute("select faculty_id from faculty;",
+                array(), True);
 
-    // else 
-    $_SESSION["userInfo"]["userType"] = "Student";
+            for ($i=0; $i < count($admin_ids); $i += 1)
+            {
+                $admin_ids[$i] = $admin_ids[$i]["faculty_ids"];
+            }
 
-    // var_dump($user);
-}
+            if (in_array($user_id, $admin_ids))
+            {
+                $_SESSION["userType"] = "Admin";
+            }
+            else
+            {
+                $_SESSION["userType"] = "Admin";
+            }
+        }
+
+        $_SESSION["isLoggedIn"] = True;
+    }
+
 
 ?>
