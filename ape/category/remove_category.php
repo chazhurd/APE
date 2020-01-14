@@ -1,4 +1,5 @@
 <?php
+    session_start();
 /**
  * Remove a category
  * @author: Andrew Robinson
@@ -15,7 +16,7 @@
 
 	$requesterId = $_POST["requester_id"];
 	$requesterType = $_POST["requester_type"];
-	$requesterSessionId = $_POST["requester_session_id"];
+	// $requesterSessionId = $_POST["requester_session_id"];
     $allowedType = array("Admin");
 	
 	$id = $_POST["cat_id"];
@@ -27,7 +28,7 @@
 	validate_only_numbers($id);
 	
 	//User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 	
 	sqlExecute("DELETE FROM category WHERE cat_id = :id",
 				array(':id' => $id),

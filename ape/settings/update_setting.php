@@ -45,7 +45,7 @@
     }
 
 	//User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     //update setting in database
 	sqlExecute("UPDATE admin_setting SET value = :value WHERE name = :name",

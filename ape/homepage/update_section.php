@@ -25,7 +25,7 @@
     validate_only_numbers($contentId);
 	
 	//User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 	
 	switch ($request)
     {

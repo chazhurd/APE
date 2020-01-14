@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Get the total graded seats of an assigned grader per exam
  * @author: Tu Nguyen
@@ -21,7 +22,7 @@
     $graderExamCatIdsArr = $_GET["grader_exam_cat_ids"];
     
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     $whereArgs = array();//holds dynamic contents of SQL statement where clause
     $sqlDataArr = array();//holds data that goes in the placeholders of the where clause

@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Update the seat number of a student in an exam
  * @author: Tu Nguyen
@@ -11,7 +12,7 @@ require_once "../util/input_validate.php";
 
 $requesterId = $_POST["requester_id"];
 $requesterType = $_POST["requester_type"];
-$requesterSessionId = $_POST["requester_session_id"];
+// $requesterSessionId = $_POST["requester_session_id"];
 
 $examId = $_POST["exam_id"];
 $studentId = $_POST["student_id"];
@@ -30,7 +31,7 @@ validate_only_numbers($examId);
 validate_only_numbers($seatNum);
 
 //User authentication
-user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+user_auth($requesterId, $requesterType, $allowedType);
 
 $sqlUpdateSeat = "UPDATE exam_roster
                 SET seat_num = :seat_num

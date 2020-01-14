@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Get account info (Teacher, Grader, and Student account)
  * @author: Tu Nguyen
@@ -10,9 +11,15 @@
     require_once "../util/input_validate.php";
     require_once "../settings/init_settings.php";
     
-    $requesterId = $_GET["requester_id"];
-    $requesterType = $_GET["requester_type"];
-    $requesterSessionId = $_GET["requester_session_id"];
+    /*
+     * TODO 
+     * instead of taking just the first user type, we need the
+     * user auth funcitno to look through all their types to see
+     * if any of their types has access to whatever given resource.
+     * Right now this just checks the first for debugging
+     */
+    $requesterType = $_SESSION['userTypes'][0];       //$_GET["requester_type"];
+    $requesterId = $_SESSION['userInfo']['userId'];     //$_GET["requester_id"];
     $allowedType = array("Admin", "Teacher", "Student");
 
     $request = $_GET["request"];
@@ -20,7 +27,7 @@
     $request = sanitize_input($request);
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    // user_auth($requesterId, $requesterType, $allowedType);
 
     //Validate strings not empty
 

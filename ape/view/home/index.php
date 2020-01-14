@@ -29,6 +29,7 @@ MLS;
         if (isset($_GET["code"]))
         {
             $authCode = $_GET["code"];
+            unset($_GET['code']);
 
             $client = new Google_Client(['client_id' => '357634610842-mb2qf2ngkh6ifp519kchkhug7l9pa2a7.apps.googleusercontent.com']);
             $provider = new Google([
@@ -37,7 +38,7 @@ MLS;
                 'redirectUri'  => 'http://localhost:8080/ape/view/home',
             ]);
             $token = $provider->getAccessToken('authorization_code', [
-                'code' => $_GET['code']
+                'code' => $authCode
             ]);
             try
             {

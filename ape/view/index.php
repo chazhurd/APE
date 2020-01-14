@@ -1,4 +1,5 @@
 <?php 
+session_start();
   $projectDirName = "ape";
 
    if ( !isset($page) ) {

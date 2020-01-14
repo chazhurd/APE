@@ -18,30 +18,17 @@
      * @param array $allowedType type(s) that allowed to use the caller function
      * @return boolean
      */
-    function user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId)
+    function user_auth($requesterId, $requesterType, $allowedType, $sessionId=null)
     {
             //Sanitize the input
             $requesterId = sanitize_input($requesterId);
             $requesterType = sanitize_input($requesterType);
-            $requesterSessionId = sanitize_input($requesterSessionId);
 
             //Ensure input is well-formed
             validate_numbers_letters($requesterId);
             
             $conn = openDB();
             $isAuth = False;
-
-            //Check session id exists and matched. Don't check this with System account
-            if(strcmp($requesterType, "System") != 0 && strcmp($requesterType, "000") != 0)
-            {
-                $userInfo = getCurUserInfo(False);
-                if(strcmp($requesterSessionId, $userInfo["userSession"]) != 0)
-                {
-                    http_response_code(401);
-                    $conn = null;
-                    die("Unauthorized access. Account is not signed in.");
-                }
-            }
 
             //Check disabled account
             $sqlDisableAccount = "SELECT disabled
@@ -77,9 +64,6 @@
                                     WHERE faculty_id LIKE :requester_id";
 
                 $sqlResult = sqlExecute($sqlSelectAccount, array(':requester_id'=>$requesterId), True);
-
-                //echo json_encode($sqlResult);
-                //echo count ($sqlResult);    
 
                 //Checks if passed-in type matches type in database.
                 for($i=0; $i<count($sqlResult); $i++)

@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Add a category to an exam
  * @author: Andrew Robinson
@@ -15,7 +16,7 @@
 	}
     $requesterId = $_POST["requester_id"];
     $requesterType = $_POST["requester_type"];
-    $requesterSessionId = $_POST["requester_session_id"];
+    // $requesterSessionId = $_POST["requester_session_id"];
     $allowedType = array("Admin", "Teacher");
 
     $examId = $_POST["exam_id"];
@@ -33,7 +34,7 @@
     validate_only_numbers($possibleGrade);
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     //Add record to exam_category table
     $sql = "INSERT INTO exam_category(cat_id, exam_id, possible_grade)

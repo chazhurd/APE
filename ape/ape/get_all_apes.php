@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Get exam info depending on account type
  * @author: Aaron Griffis
@@ -8,9 +9,15 @@
     require_once "../util/sql_exe.php";
     require_once "../util/input_validate.php";
 
-    $requesterId = $_GET["requester_id"];
-    $requesterType = $_GET["requester_type"];
-    $requesterSessionId = $_GET["requester_session_id"];
+    $requesterId = $_SESSION['userInfo']['userId'];     //$_GET["requester_id"];
+
+    /*
+     * TODO
+     * stub for changing below - we shouldn't be taking just the first
+     * user type, but user auth should look at all types
+     */
+    $requesterType = $_SESSION['userTypes'][0];       //$_GET["requester_type"];
+    // $requesterSessionId = $_GET["requester_session_id"];
     $request = $_GET["request"];
     $allowedType = array("Admin", "Teacher", "Student", "Grader", "000");
 
@@ -19,7 +26,7 @@
     $request = sanitize_input($request);
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    // user_auth($requesterId, $requesterType, $allowedType);
 
     $sqlResult = array();
 
@@ -60,7 +67,7 @@
             case "Admin":  $sqlSelectExams = "SELECT exam_id, name, quarter, date, location, state, possible_grade, passing_grade, duration, TIME_FORMAT(start_time, '%h:%i %p') AS start_time, cutoff
                                             FROM exam
                                             WHERE state LIKE :state";
-                            return $sqlResult = sqlExecute($sqlSelectExams, array(":state"=>$state), true);
+                            return sqlExecute($sqlSelectExams, array(":state"=>$state), true);
                             break;
 
             case "Teacher":  $sqlSelectExams = "SELECT exam_id, name, quarter, date, location, state, possible_grade, passing_grade, duration, TIME_FORMAT(start_time, '%h:%i %p') AS start_time, cutoff
@@ -69,7 +76,7 @@
                                                 USING (exam_id)
                                                 WHERE teacher_id LIKE :teacher_id AND state LIKE :state";
                             $data = array(':teacher_id' => $requesterId, ":state"=>$state);
-                            return $sqlResult = sqlExecute($sqlSelectExams, $data, true);
+                            return sqlExecute($sqlSelectExams, $data, true);
                             break;
 
             case "000":

@@ -1,4 +1,5 @@
 <div class="panel panel-default">
+session_start();
    <div class="panel-heading with-nav-tabs clearfix">
       <h4 class="panel-title pull-left"><strong><?php echo $tableTitle; ?></strong></h4>
       <ul class="nav nav-tabs pull-right">

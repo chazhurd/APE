@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Get the graders of an exam, exam category, or all Grading exam
  * @author: Tu Nguyen
@@ -8,14 +9,15 @@
     require_once "../util/sql_exe.php";
     require_once "../util/input_validate.php";
 
+    /*
     if(empty($_GET["requester_id"]) || empty($_GET["requester_type"])){
 		http_response_code(400);
         die("Incomplete input.");
 	}
+     */
     
-    $requesterId = $_GET["requester_id"];
-    $requesterType = $_GET["requester_type"];
-    $requesterSessionId = $_GET["requester_session_id"];
+    $requesterType = $_SESSION['userTypes'][0];       //$_GET["requester_type"];
+    $requesterId = $_SESSION['userInfo']['userId'];     //$_GET["requester_id"];
     
     $allowedType = array("Grader", "Admin", "Teacher");
 
@@ -25,7 +27,7 @@
     $request = sanitize_input($request);
     
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     $sqlResult = array();
     
@@ -39,8 +41,6 @@
         case "get_by_exam_cat_id": $sqlResult = getGradersByExamCatId();
                             break;
     }
-
-
 
     echo json_encode($sqlResult);
 

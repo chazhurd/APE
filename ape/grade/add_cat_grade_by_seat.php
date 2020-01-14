@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Finds student_id based on exam_id and seat_num, then
  * adds grade using add_cat_grade.php
@@ -26,7 +27,7 @@
     validate_only_numbers($examId);
     
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     
     $sql = "SELECT student_id

@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Update info of Teacher, Grader, and Student account
  * @author: Tu Nguyen
@@ -11,7 +12,7 @@
     
     $requesterId = $_POST["requester_id"];
     $requesterType = $_POST["requester_type"];
-    $requesterSessionId = $_POST["requester_session_id"];
+    // $requesterSessionId = $_POST["requester_session_id"];
     $allowedType = array("Admin", "Teacher");
 
     $request = $_POST["request"];
@@ -20,7 +21,7 @@
     $request = sanitize_input($request);
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
 
     /*

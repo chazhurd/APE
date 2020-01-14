@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Search student accounts with a string
  * @author: Tu Nguyen
@@ -12,7 +13,7 @@
     
     $requesterId = $_GET["requester_id"];
     $requesterType = $_GET["requester_type"];
-    $requesterSessionId = $_GET["requester_session_id"];
+    // $requesterSessionId = $_GET["requester_session_id"];
     $searchStrInput = $_GET["search_str"];
     $allowedType = array("Admin", "Teacher", "System");
 
@@ -30,7 +31,7 @@
     $searchStrInput = sanitize_input($searchStrInput);
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     
     if(count($searchStr) == 1)

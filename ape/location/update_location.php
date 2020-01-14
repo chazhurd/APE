@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Update a location
  * @author: Andrew Robinson
@@ -33,7 +34,7 @@
 	validate_only_numbers($id);
 	
 	//User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 	
 	sqlExecute("UPDATE location SET name = :name, seats = :seats WHERE loc_id = :id",
 				array(':name' => $name, ':seats' => $seats, ':id' => $id),

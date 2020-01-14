@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Function that returns an array of current user information, includings:
  * - userId
@@ -15,13 +16,23 @@
 
     if (isset($_GET['is_client']))
     {
-        if ($_GET['is_client'] == true)
+
+        if ($_SESSION['isLoggedIn'])
         {
-            echo json_encode($_SESSION);
+            $userInfo = $_SESSION;
         }
         else
         {
-            return $_SESSION;
+            $userInfo = array();
+        }
+
+        if ($_GET['is_client'] == true)
+        {
+            echo json_encode($userInfo);
+        }
+        else
+        {
+            return $userInfo;
         }
     }
 
@@ -65,10 +76,13 @@
             {
                 $_SESSION["userTypes"] = array("Admin");
             }
+
+            $_SESSION['userInfo']['userId'] = $user_id;
+            $_SESSION["userTypes"] = array("Admin", "Grader", "Teacher");
         }
 
-        $_SESSION["userInfo"]['userFname'] =  $_SESSION["userInfo"]['family_name'];
-        $_SESSION["userInfo"]['userLname'] = $_SESSION["userInfo"]['given_name'];
+        $_SESSION["userInfo"]['userFname'] = $_SESSION["userInfo"]['given_name'];
+        $_SESSION["userInfo"]['userLname'] = $_SESSION["userInfo"]['family_name'];
         $_SESSION["isLoggedIn"] = True;
     }
 

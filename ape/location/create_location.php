@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Create a location
  * @author: Andrew Robinson
@@ -28,7 +29,7 @@
 	validate_only_numbers($seats);
 	
 	//User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 	
 	$lastInsertId = sqlExecute("INSERT INTO location (name, seats) VALUES (:name, :seats)",
 				array(':name' => $name, ':seats' => $seats),

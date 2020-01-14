@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Create new exam
  * @author: Aaron Griffis
@@ -10,11 +11,11 @@
 
     $requesterId = $_POST["requester_id"];
     $requesterType = $_POST["requester_type"];
-    $requesterSessionId = $_POST["requester_session_id"];
+    // $requesterSessionId = $_POST["requester_session_id"];
     $allowedType = array("Admin", "Teacher");
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     $name = $_POST["name"];
     $quarter = $_POST["quarter"];

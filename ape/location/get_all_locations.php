@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Get all locations or one specified by loc_id
  * @author: Andrew Robinson
@@ -8,18 +9,22 @@
 	require_once "../auth/user_auth.php";
 	require_once "../util/input_validate.php";
 	
+    /*
 	if(empty($_GET["requester_id"]) || empty($_GET["requester_type"])){
 		http_response_code(400);
         die("Incomplete input.");
 	}
-
 	$requesterId = $_GET["requester_id"];
 	$requesterType = $_GET["requester_type"];
 	$requesterSessionId = $_GET["requester_session_id"];
+     */
+
+	$requesterId = $_SESSION['userInfo']['userId']; // $_GET["requester_id"];
+	$requesterType = $_SESSION['userTypes'][0]; // $_GET["requester_type"];
     $allowedType = array("Admin", "Teacher", "Student", "000");
 
 	//User authentication
-	user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+	// user_auth($requesterId, $requesterType, $allowedType);
 	
 	//get single location by id
 	if(!empty($_GET["loc_id"]))

@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Get exam overall grade and pass/fail status of a student
  * @author: Tu Nguyen
@@ -25,7 +26,7 @@
       validate_numbers_letters($studentId);
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     checkStudentExists($studentId);
 

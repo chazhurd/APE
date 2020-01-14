@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Search student accounts with a string
  * @author: Tu Nguyen
@@ -15,7 +16,7 @@
 	$requesterId = $_POST["requester_id"];
 	$teacherId = $requesterId;
 	$requesterType = $_POST["requester_type"];
-	$requesterSessionId = $_POST["requester_session_id"];
+	// $requesterSessionId = $_POST["requester_session_id"];
 	$allowedType = array("Admin", "Teacher", "System");
 	
 	//Sanitize the input
@@ -25,7 +26,7 @@
 	validate_numbers_letters($teacherId);
 
     //User authentication
-	user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+	user_auth($requesterId, $requesterType, $allowedType);
 
     //Validate strings not empty
 

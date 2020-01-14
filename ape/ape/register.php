@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Register a student for an APE
  * @author: Andrew Robinson
@@ -12,7 +13,7 @@
 	
 	$requesterId = $_POST["requester_id"];
 	$requesterType = $_POST["requester_type"];
-	$requesterSessionId = $_POST["requester_session_id"];
+	// $requesterSessionId = $_POST["requester_session_id"];
     $allowedType = array("Admin", "Teacher", "Student");
 	
 	$student_id = $_POST["student_id"];
@@ -27,7 +28,7 @@
     validate_only_numbers($exam_id);
 	
 	//User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 	
 	//Authenticate student being registered
 	checkStudentExists($student_id);

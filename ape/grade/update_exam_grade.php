@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Update a student exam grade
  * @author: Tu Nguyen
@@ -32,7 +33,7 @@
     validate_only_numbers($grade);
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     checkExamExists($examId);
     checkStudentExists($studentId);

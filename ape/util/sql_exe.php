@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Util that combines 3 steps of executing a SQL query.
  * @author: Tu Nguyen

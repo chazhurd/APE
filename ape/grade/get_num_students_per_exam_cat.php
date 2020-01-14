@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Gets the number of students registered for
  * each exam_cat assigned to requesting grader
@@ -16,7 +17,7 @@
     $allowedType = array("Grader","Admin", "Teacher");
     
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     
     $sql = "SELECT grader_exam_cat_id, exam_id, cat_id, (SELECT COUNT(student_id)

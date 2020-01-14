@@ -25,12 +25,9 @@ var _isCreateClicked = false;
 
 $(document).ready(loaded);
 
-function loaded() 
+function loaded()
 {
-
     $.get("../util/get_cur_user_info.php", {is_client: true}, loadUserInfo, "json");
-    
-    
 }
 
 
@@ -61,7 +58,7 @@ function init()
     
         $("input[name='requester_id']").val(_userId);
         $("input[name='requester_type']").val(_userType);
-        $("input[name='requester_session_id']").val(_userSessionId);
+        // $("input[name='requester_session_id']").val(_userSessionId);
     
         //Create import button in Students tab
         //$("#create-button").after('<button type="button" class="btn btn-primary pull-left students-specific-btn" data-toggle="modal" data-target="#upload-modal" id="import-students-button">Import Students</button>');
@@ -229,9 +226,6 @@ function init()
 
 function buildTable()
 {
-        
-        
-        
         if (_userType == "Admin")
         {
             //build Admins table
@@ -391,7 +385,7 @@ function createItem()
     $.post("../account/create_account.php", 
         {requester_id: _userId,
         requester_type: _userType,
-        requester_session_id: _userSessionId,
+        // requester_session_id: _userSessionId,
         id: $("#ewu-id").val(),
         f_name: $("input[name='f_name']").val(),
         l_name: $("input[name='l_name']").val(),
@@ -404,7 +398,7 @@ function createItem()
             $.get("../account/get_account_info.php", 
             {requester_id: _userId,
             requester_type: _userType,
-            requester_session_id: _userSessionId,
+            // requester_session_id: _userSessionId,
             request: "get_by_id",
             id: lastInsertId},
             function(item){
@@ -441,7 +435,7 @@ function updateItem()
     $.post("../account/update_account.php", 
     {requester_id: _userId,
     requester_type: _userType,
-    requester_session_id: _userSessionId,
+    // requester_session_id: _userSessionId,
     request: request,
     old_id: $("#item-id").val(),
     new_id: $("input[name='user_id']").val(),
@@ -458,7 +452,7 @@ function updateItem()
                 {
                     requester_id: _userId,
                     requester_type: _userType,
-                    requester_session_id: _userSessionId,
+                    // requester_session_id: _userSessionId,
                     request: "get_by_id",
                     id: $("input[name='user_id']").val()
                 }, function(item){
@@ -538,7 +532,7 @@ function onclickDetails(e)
     $.get("../account/get_account_info.php", 
     {requester_id: _userId,
     requester_type: _userType,
-    requester_session_id: _userSessionId,
+    // requester_session_id: _userSessionId,
     request: "get_by_id",
     id: itemId}, 
     function(item){
@@ -614,7 +608,7 @@ function buildStudentHistory(studentId)
     $.get("../ape/get_all_apes.php", 
     {requester_id: _userId,
     requester_type: _userType,
-    requester_session_id: _userSessionId,
+    // requester_session_id: _userSessionId,
     student_id: studentId,
     request: "get_student_apes"}, 
     loadStudentTable,
@@ -642,7 +636,7 @@ function onclickDisable(e)
         $.post("../account/update_account.php", 
         {requester_id: _userId,
         requester_type: _userType,
-        requester_session_id: _userSessionId,
+        // requester_session_id: _userSessionId,
         request: "update_disabled",
         id: studentId,
         disabled: 1-disabled},
@@ -691,9 +685,8 @@ function getAllItems(type)
     
     
     $.get("../account/get_account_info.php", 
-        {requester_id: _userId,
-        requester_type: _userType,
-        requester_session_id: _userSessionId,
+        {requester_id: $.cookie('userId'),
+        requester_type: $.cookie('userType'),
         request: "get_by_type",
         type: type}, 
         function(data,asd, xhr){
@@ -736,7 +729,6 @@ function search(searchStr)
         $.get("../account/student_search.php", 
         {requester_id: _userId,
         requester_type: _userType,
-        requester_session_id: _userSessionId,
         search_str: searchStr}, 
         function(data){
             

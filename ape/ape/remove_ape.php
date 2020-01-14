@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Remove an exam
  * @author: Tu Nguyen
@@ -10,7 +11,7 @@
 
     $requesterId = $_POST["requester_id"];
     $requesterType = $_POST["requester_type"];
-    $requesterSessionId = $_POST["requester_session_id"];
+    // $requesterSessionId = $_POST["requester_session_id"];
     $allowedType = array("Admin", "Teacher");
     $examId = $_POST["exam_id"];
 
@@ -21,7 +22,7 @@
     validate_only_numbers($examId);
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     
     //ensure valid in-class exam if user is a teacher

@@ -1,4 +1,5 @@
 <div class="panel panel-default">
+session_start();
    <div class="panel-heading">
       <h4 class="panel-title"><strong><?php echo $tableTitle; ?></strong></h4>
    </div>

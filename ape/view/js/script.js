@@ -50,7 +50,7 @@ function loaded()
 
 function loadUserInfo(data)
 {
-    console.log(data);
+    console.log('view/js/script.js: (fn) loadUserInfo: data: ', data);
 
     if (data.length == 0)
     {
@@ -78,19 +78,19 @@ function loadUserInfo(data)
         //"Admin" type supercedes all other type therefore _userType gets "Admin"
         //"Teacher" supercedes "Grader"
         //"Student" type never has other type in data.userType array
-        if(data.userType.indexOf("Admin") != -1)
+        if(data.userTypes.indexOf("Admin") != -1)
         {
             _userType = "Admin";
         }
-        else if(data.userType.indexOf("Teacher") != -1)
+        else if(data.userTypes.indexOf("Teacher") != -1)
         {
             _userType = "Teacher";
         }
-        else if(data.userType.indexOf("Grader") != -1)
+        else if(data.userTypes.indexOf("Grader") != -1)
         {
             _userType = "Grader";
         }
-        else if(data.userType.indexOf("Student") != -1)
+        else if(data.userTypes.indexOf("Student") != -1)
         {
             _userType = "Student";
         }

@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     require_once "../../util/get_cur_user_info.php";
     $page = "exam";
     $title = "EWU APE Exams";

@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Gets seat numbers that have not gotten grades from
  * this grader for this exam_cat
@@ -27,7 +28,7 @@
     validate_only_numbers($examId);
     
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     
     $sql = "SELECT seat_num

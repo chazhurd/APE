@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Finalize all students' grades of an exam
  * Change all students' state in the exam and send them all email
@@ -22,7 +23,7 @@ $examId = sanitize_input($examId);
 validate_only_numbers($examId);
 
 //User authentication
-user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+user_auth($requesterId, $requesterType, $allowedType);
 
 //Check if in-class exam
 if(!checkInclassExamExists($examId))

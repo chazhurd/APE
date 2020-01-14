@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Pass or fail a student
  * @author: Tu Nguyen
@@ -30,7 +31,7 @@
     validate_only_numbers($examId);
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     checkExamExists($examId);
     checkStudentExists($studentId);

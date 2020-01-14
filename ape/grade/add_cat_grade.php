@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Add exam category grade for a student
  * @author: Tu Nguyen
@@ -30,7 +31,7 @@
     validate_only_numbers($grade);
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     checkGraderExamCatExists($graderExamCatId);
     checkStudentExists($studentId);

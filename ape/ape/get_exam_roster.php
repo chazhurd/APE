@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Get an exam roster
  * If grades requires, this file processes all grades operations before return the roster with grades,
@@ -12,16 +13,18 @@
     require_once "../util/input_validate.php";
     require_once "../util/check_id.php";
 
-    $requesterId = $_GET["requester_id"];
-    $requesterType = $_GET["requester_type"];
-    $requesterSessionId = $_GET["requester_session_id"];
+//     $requesterId = $_GET["requester_id"];
+  //   $requesterType = $_GET["requester_type"];
+    $requesterType = $_SESSION['userTypes'][0];       //$_GET["requester_type"];
+    $requesterId = $_SESSION['userInfo']['userId'];     //$_GET["requester_id"];
+    // $requesterSessionId = $_GET["requester_session_id"];
     
     $allowedType = array("Admin", "Teacher");
 
     $systemId = "999999";
     
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     if(strcmp($requesterType,"System") != 0)
     {
@@ -41,7 +44,7 @@
         {
             $_POST["requester_id"] = "999999";
             $_POST["requester_type"] = "System";
-            $_POST["requester_session_id"] = "000";
+            // $_POST["requester_session_id"] = "000";
             require_once "../grade/add_final_cat_grade.php";
             require_once "../grade/add_exam_grade.php";
 

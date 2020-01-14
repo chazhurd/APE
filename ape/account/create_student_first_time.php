@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Create new Student account first time log in
  * Use this to hide the System account cred from client

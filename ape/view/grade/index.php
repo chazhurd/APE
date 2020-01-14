@@ -1,4 +1,5 @@
 <?php 
+    session_start();
 
 $_GET["is_client"] = False;
 require_once "../../util/get_cur_user_info.php";

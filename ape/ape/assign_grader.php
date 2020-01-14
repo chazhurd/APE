@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Assign a grader to an exam category
  * @author: Tu Nguyen
@@ -11,7 +12,7 @@
     
     $requesterId = $_POST["requester_id"];
     $requesterType = $_POST["requester_type"];
-    $requesterSessionId = $_POST["requester_session_id"];
+    // $requesterSessionId = $_POST["requester_session_id"];
     $allowedType = array("Admin", "Teacher");
 
     $examCatId = $_POST["exam_cat_id"];
@@ -26,7 +27,7 @@
     validate_numbers_letters($userId);
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
 
     //Assign grader to an exam category

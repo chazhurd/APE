@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Create new Teacher, Grader, and Student account
  * @author: Tu Nguyen
@@ -12,11 +13,11 @@
     
     $requesterId = $_POST["requester_id"];
     $requesterType = $_POST["requester_type"];
-    $requesterSessionId = $_POST["requester_session_id"];
+    // $requesterSessionId = $_POST["requester_session_id"];
     $allowedType = array("Admin", "Teacher", "System");
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     /*
     //Validate only admin can create admin account

@@ -8,17 +8,22 @@
 	require_once "../auth/user_auth.php";
 	require_once "../util/input_validate.php";
 
+    $requesterType = $_SESSION['userTypes'][0];       //$_GET["requester_type"];
+    $requesterId = $_SESSION['userInfo']['userId'];     //$_GET["requester_id"];
+
+    /*
 	$requesterId = $_GET["requester_id"];
 	$requesterType = $_GET["requester_type"];
     $requesterSessionId = $_GET["requester_session_id"];
+     */
     $request = $_GET["request"];
     $allowedType = array("Admin", "Teacher", "Student", "000");
 
     //Sanitize the input
-    $request = sanitize_input($request);
+    // $request = sanitize_input($request);
 
 	//User authentication
-	user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+	user_auth($requesterId, $requesterType, $allowedType);
 	
     switch ($request)
     {

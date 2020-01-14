@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Gets relevant info about a grader's assigned exam_cats 
  * @author: Andrew Robinson
@@ -20,7 +21,7 @@
     $allowedType = array("Grader", "Admin", "Teacher");
     
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     
     $sql = "SELECT exam.name AS exam_name, category.name AS cat_name, exam_id, exam_category.possible_grade, grader_exam_cat_id

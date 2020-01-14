@@ -1,4 +1,5 @@
 <?php
+session_start();
     //These functions are used to check input coming into the API
     
     function sanitize_input($data){

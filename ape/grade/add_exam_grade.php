@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Add exam overall grade for a student
  * @author: Tu Nguyen
@@ -16,7 +17,7 @@
     $allowedType = array("Admin", "Teacher", "System");
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     if(strcmp($requesterType,"System") != 0)
     {

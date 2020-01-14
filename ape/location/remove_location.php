@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Remove a location
  * @author: Andrew Robinson
@@ -27,7 +28,7 @@
 	validate_only_numbers($id);
 	
 	//User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 	
 	sqlExecute("DELETE FROM location WHERE loc_id = :id",
 				array(':id' => $id),

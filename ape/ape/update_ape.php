@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Update exam info
  * @author: Aaron Griffis
@@ -10,7 +11,7 @@
     
     $requesterId = $_POST["requester_id"];
     $requesterType = $_POST["requester_type"];
-    $requesterSessionId = $_POST["requester_session_id"];
+    // $requesterSessionId = $_POST["requester_session_id"];
     $request = $_POST["request"];
     $allowedType = array("Admin", "Teacher");
     
@@ -18,7 +19,7 @@
     $request = sanitize_input($request);
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     switch($request)
     {

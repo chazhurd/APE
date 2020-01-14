@@ -1,4 +1,5 @@
 <?php
+session_start();
     require_once "../auth/user_auth.php";
     require_once "../util/sql_exe.php";
     require_once "../util/check_id.php";
@@ -12,7 +13,7 @@
     $allowedType = array("Admin", "Teacher", "System");
 
     //User authentication
-    user_auth($requesterId, $requesterType, $allowedType, $requesterSessionId);
+    user_auth($requesterId, $requesterType, $allowedType);
 
     if(strcmp($requesterType,"System") != 0)
     {
