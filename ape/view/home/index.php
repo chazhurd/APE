@@ -2,11 +2,13 @@
 
     use \Firebase\JWT\JWT;
 
+    if(session_status() === PHP_SESSION_NONE) session_start();
+    
     $_GET["is_client"] = False;
     require_once "../../util/get_cur_user_info.php";
     include_once __DIR__ . '/../../../vendor/autoload.php';
     use League\OAuth2\Client\Provider\Google;
-    $userInfo = getCurUserInfo(False);
+    // $userInfo = getCurUserInfo(False);
     $page = "";
     $jsArr = array();
     $title = "EWU APE Home";
@@ -24,7 +26,6 @@ MLS;
 
     if (isset($_GET["code"]))
     {
-        echo "<h1>Authenticated successfully<br>" . $_GET["code"] . "</h1>";
         $authCode = $_GET["code"];
 
         $client = new Google_Client(['client_id' => '357634610842-mb2qf2ngkh6ifp519kchkhug7l9pa2a7.apps.googleusercontent.com']);
@@ -33,38 +34,34 @@ MLS;
             'clientId' => '357634610842-mb2qf2ngkh6ifp519kchkhug7l9pa2a7.apps.googleusercontent.com',
             'redirectUri'  => 'http://localhost:8080/ape/view/home',
         ]);
-        echo "<h2>Successfully created new google client.</h2>";
         $token = $provider->getAccessToken('authorization_code', [
             'code' => $_GET['code']
         ]);
-        try {
+        try
+        {
             $ownerDetails = $provider->getResourceOwner($token);
-            printf('Hello %s!\n', $ownerDetails->getFirstName());
-
-            // This is the JWT of all the real data we want.
-            // We'll have to get a decoder for JWT's to get
-            // at all the actual data.
-            var_dump($token->getValues());
             $jwt = $token->getValues()['id_token'];
             $jwt_arr = explode(".", $jwt);
             $alg = base64_decode($jwt_arr[0]);
-            $decoded = JWT::decode($jwt, $key, array('RS256'));
-            var_export($decoded);
-            
-        } catch (Exception $e) {
+            $jwt_arr[0] = json_decode(base64_decode($jwt_arr[0]), true);
+            $jwt_arr[1] = json_decode(base64_decode($jwt_arr[1]), true);
+            $_SESSION["userInfo"] = $jwt_arr[1];
+            sessionSetup();
+        }
+        catch (Exception $e)
+        {
             exit('Something went wrong: ' . $e->getMessage());
         }
     }
 
-    if(count($userInfo) == 0)
+    if(!$_SESSION["isLoggedIn"])
     {
         $page = "student_home";
-
         require_once "../index.php";
     }
     else
     {
-        if(in_array("Admin", $userInfo["userType"]) || in_array("Teacher", $userInfo["userType"]))
+        if(strcmp("Admin", $userInfo["userType"])===0 || strcmp("Teacher", $userInfo["userType"])===0)
         {
             if(strcmp($_GET["page"],"grader_home") == 0)
             {
@@ -87,12 +84,12 @@ MLS;
                 require_once "../index.php";
             } 
         }
-        else if(in_array("Grader", $userInfo["userType"]))
+        else if(strcmp("Grader", $userInfo["userType"]) === 0)
         {
             $page = "grader_home";
             require_once "../index.php";
         }
-        else if(in_array("Student", $userInfo["userType"]))
+        else if(strcmp("Student", $userInfo["userType"]) === 0)
         {
             $page = "student_home";
             $modalsArr = array("student_home");
