@@ -11,6 +11,7 @@
     $page = "";
     $jsArr = array();
     $title = "EWU APE Home";
+    $_SESSION['userTypes'] = array();
     $key = <<<MLS
 -----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuS6GkOtm9kmk1flSzjVP
@@ -23,53 +24,60 @@ WwIDAQAB
 -----END PUBLIC KEY-----
 MLS;
 
-    if (isset($_GET["code"]))
+    if (!$_SESSION['loggedIn'])
     {
-        $authCode = $_GET["code"];
+        if (isset($_GET["code"]))
+        {
+            $authCode = $_GET["code"];
 
-        $client = new Google_Client(['client_id' => '357634610842-mb2qf2ngkh6ifp519kchkhug7l9pa2a7.apps.googleusercontent.com']);
-        $provider = new Google([
-            'clientSecret' => '8D9r4JqcURJNYS_HukECvia4',
-            'clientId' => '357634610842-mb2qf2ngkh6ifp519kchkhug7l9pa2a7.apps.googleusercontent.com',
-            'redirectUri'  => 'http://localhost:8080/ape/view/home',
-        ]);
-        $token = $provider->getAccessToken('authorization_code', [
-            'code' => $_GET['code']
-        ]);
-        try
-        {
-            $ownerDetails = $provider->getResourceOwner($token);
-            $jwt = $token->getValues()['id_token'];
-            $jwt_arr = explode(".", $jwt);
-            $alg = base64_decode($jwt_arr[0]);
-            $jwt_arr[0] = json_decode(base64_decode($jwt_arr[0]), true);
-            $jwt_arr[1] = json_decode(base64_decode($jwt_arr[1]), true);
-            $_SESSION["userInfo"] = $jwt_arr[1];
-            sessionSetup();
+            $client = new Google_Client(['client_id' => '357634610842-mb2qf2ngkh6ifp519kchkhug7l9pa2a7.apps.googleusercontent.com']);
+            $provider = new Google([
+                'clientSecret' => '8D9r4JqcURJNYS_HukECvia4',
+                'clientId' => '357634610842-mb2qf2ngkh6ifp519kchkhug7l9pa2a7.apps.googleusercontent.com',
+                'redirectUri'  => 'http://localhost:8080/ape/view/home',
+            ]);
+            $token = $provider->getAccessToken('authorization_code', [
+                'code' => $_GET['code']
+            ]);
+            try
+            {
+                $ownerDetails = $provider->getResourceOwner($token);
+                $jwt = $token->getValues()['id_token'];
+                $jwt_arr = explode(".", $jwt);
+                $alg = base64_decode($jwt_arr[0]);
+                $jwt_arr[0] = json_decode(base64_decode($jwt_arr[0]), true);
+                $jwt_arr[1] = json_decode(base64_decode($jwt_arr[1]), true);
+                $_SESSION["userInfo"] = $jwt_arr[1];
+                sessionSetup();
+            }
+            catch (Exception $e)
+            {
+                exit('Something went wrong: ' . $e->getMessage());
+            }
         }
-        catch (Exception $e)
+        else
         {
-            exit('Something went wrong: ' . $e->getMessage());
+            $page = "student_home";
+            require_once "../index.php";
         }
     }
 
-    if(!$_SESSION["isLoggedIn"])
+    /*
+     * userTypes is an array of all the types that apply to
+     * the given student. Thus several different aspects of the web
+     * page may render depending on the combination of types
+     * that apply to the given user
+     */
+    if (in_array("Admin", $_SESSION["userTypes"]))
     {
-        $page = "student_home";
-        require_once "../index.php";
-    }
-
-    // if(in_array("Admin", $userInfo["userType"]) || in_array("Teacher", $userInfo["userType"]))
-    if ($_SESSION["userType"] == "Admin")
-    {
-        if(strcmp("Admin", $userInfo["userType"])==0 || strcmp("Teacher", $userInfo["userType"])==0)
+        if(in_array("Admin", $_SESSION["userTypes"]) || in_array("Teacher", $_SESSION["userTypes"]))
         {
-            if(strcmp($_GET["page"],"grader_home") == 0)
+            if($_GET["page"] == "grader_home")
             {
                 $page = "grader_home";
                 require_once "../index.php";
             }
-            else if(strcmp($_GET["page"],"homepage_editor") == 0)
+            else if($_GET["page"] == "homepage_editor")
             {
                 $page = "admin_home_editor";
                 $modalsArr = array("admin_home_editor");
@@ -81,16 +89,21 @@ MLS;
                 $modalTabsArr = array("../exam/exam", "../exam/roster", "../exam/report");
                 $modalTabsTitles = array("Exam", "Roster", "Report");
                 $modalSize = "large";
-                $jsArr = array("../exam/exam_modal", "../exam/exam_detail", "../exam/exam_report", "../exam/exam_roster");
+                $jsArr = array(
+                    "../exam/exam_modal",
+                    "../exam/exam_detail",
+                    "../exam/exam_report",
+                    "../exam/exam_roster"
+                );
                 require_once "../index.php";
             } 
         }
-        else if(strcmp("Grader", $userInfo["userType"]) == 0)
+        else if(in_array("Grader", $_SESSION["userTypes"]))
         {
             $page = "grader_home";
             require_once "../index.php";
         }
-        else if(strcmp("Student", $userInfo["userType"]) == 0)
+        else if(in_array("Student", $_SESSION["userTypes"]))
         {
             $page = "admin_home_editor";
             $modalsArr = array("admin_home_editor");
@@ -111,12 +124,12 @@ MLS;
             require_once "../index.php";
         } 
     }
-    else if("Grader" == $userInfo["userType"])
+    else if(in_array("Grader", $_SESSION["userTypes"]))
     {
         $page = "grader_home";
         require_once "../index.php";
     }
-    else if("Student" == $userInfo["userType"])
+    else if(in_array("Student", $_SESSION["userTypes"]))
     {
         $page = "student_home";
         $modalsArr = array("student_home");

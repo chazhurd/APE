@@ -1,6 +1,5 @@
 <?php 
     require_once "../../util/get_cur_user_info.php";
-    $userInfo = getCurUserInfo(false);
     $page = "exam";
     $title = "EWU APE Exams";
     $tableTitle = "Exams";
@@ -12,14 +11,14 @@
     $jsArr = array();
 
 
-    if(in_array("Student", $userInfo["userType"]))
+    if(in_array("Student", $_SESSION["userTypes"]))
     {
         $tableTitle = "Exams History";
         $jsArr = array("exam_student");
     }
     else
     {
-        if(in_array("Teacher", $userInfo["userType"]) || in_array("Admin", $userInfo["userType"]))
+        if(in_array("Teacher", $_SESSION["userTypes"]) || in_array("Admin", $_SESSION["userTypes"]))
         {
             $page = "exam";
             $title = "EWU APE Exams";

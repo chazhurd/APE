@@ -3,9 +3,7 @@
 $_GET["is_client"] = False;
 require_once "../../util/get_cur_user_info.php";
 
-$userInfo = getCurUserInfo(False);
-
-if(in_array("Admin", $userInfo["userType"]))
+if(in_array("Admin", $_SESSION["userTypes"]))
 {
     $page = "settings";
     $title = "EWU APE Administrator Configurations";

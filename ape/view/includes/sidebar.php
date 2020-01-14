@@ -3,8 +3,6 @@
     $_GET["is_client"] = False;
     require_once $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . $projectDirName . DIRECTORY_SEPARATOR . "util" . DIRECTORY_SEPARATOR . "get_cur_user_info.php";
 
-    $userInfo = getCurUserInfo(False);
-
     echo '<a href="https://www.ewu.edu" class="list-group-item">
             <img src="img/horizontal-logo-transparent-150x50.png" class="img-responsive" alt="EWU Logo">
         </a>
@@ -12,60 +10,56 @@
         <div class="list-group-item user-wrapper">
             <div class="user">
                 <h5>Welcome</h5>
-                <h4>'. $userInfo["userFname"] . ' ' . $userInfo["userLname"] . '</h4>
+                <h4>'. $_SESSION['userInfo']["userFname"] . ' ' . $_SESSION['userInfo']["userLname"] . '</h4>
             </div>
         </div>';
 
-    
-    
-    if(count($userInfo) != 0)
+    /*
+     * TODO
+     * Need to change this to use fucntion
+     * pointers instead to get rid of this nasty
+     * switch logic
+     */
+    switch (count($_SESSION["userTypes"]))
     {
-        switch (count($userInfo["userType"]))
-        {
-            case 1: switch ($userInfo["userType"][0])
-                    {
-                        case "Admin": adminType(); break;
-                        case "Teacher": teacherType(); break;
-                        case "Grader": graderType(); break;
-                        case "Student": studentType(); break;
-                    }
-                    break;
+        case 0:
+            break;
+        case 1: switch ($_SESSION["userTypes"][0])
+                {
+                    case "Admin": adminType(); break;
+                    case "Teacher": teacherType(); break;
+                    case "Grader": graderType(); break;
+                    case "Student": studentType(); break;
+                }
+                break;
 
-            case 2:
-                    if(in_array("Admin", $userInfo["userType"]) && in_array("Teacher", $userInfo["userType"]))
-                    {
-                        adminType();
-                        teacherType();
-                    }
-                
-                    if(in_array("Admin", $userInfo["userType"]) && in_array("Grader", $userInfo["userType"]))
-                    {
-                        adminType();
-                        graderType();
-                    }
-
-                    if(in_array("Teacher", $userInfo["userType"]) && in_array("Grader", $userInfo["userType"]))
-                    {
-                        teacherType();
-                        graderType();
-                    }
-                    break;
-
-            case 3: 
+        case 2:
+                if(in_array("Admin", $_SESSION["userTypes"]) && in_array("Teacher", $_SESSION["userTypes"]))
+                {
                     adminType();
                     teacherType();
+                }
+            
+                if(in_array("Admin", $_SESSION["userTypes"]) && in_array("Grader", $_SESSION["userTypes"]))
+                {
+                    adminType();
                     graderType();
-                    break;
-        }
+                }
 
-        
+                if(in_array("Teacher", $_SESSION["userTypes"]) && in_array("Grader", $_SESSION["userTypes"]))
+                {
+                    teacherType();
+                    graderType();
+                }
+                break;
+
+        case 3: 
+                adminType();
+                teacherType();
+                graderType();
+                break;
     }
 
-    /*echo '<p class="list-group-item user-cat"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span>Feedback</p>
-        <div class="list-group">
-            <a class="list-group-item" href="mailto:tunguyen@eagles.ewu.edu?subject=Team 1 APE Website feedback"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>Email the team</a>
-        </div>';*/
-    //"/home/index.php?page=admin_home" put a "page" variable into $_GET for view/index.php to display the correct requested home
 
     function adminType()
     {

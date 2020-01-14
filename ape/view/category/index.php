@@ -2,9 +2,7 @@
 
 require_once "../../util/get_cur_user_info.php";
 
-$userInfo = getCurUserInfo(False);
-
-if(in_array("Admin", $userInfo["userType"]) || in_array("Teacher", $userInfo["userType"]))
+if(in_array("Admin", $_SESSION["userTypes"]) || in_array("Teacher", $_SESSION["userTypes"]))
 {
     $page = "category";
     $title = "EWU APE Categories";

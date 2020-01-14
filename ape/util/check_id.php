@@ -53,9 +53,20 @@
     function checkInClassStudentExists($studentId, $teacherId, $startDate, $endDate)
     {
         $sqlCheckExists = "SELECT COUNT(*) as count
-        FROM in_class_student
-        WHERE student_id LIKE :student_id AND teacher_id LIKE :teacher_id AND start_date LIKE :start_date AND end_date LIKE :end_date";
-        $sqlResult = sqlExecute($sqlCheckExists, array('student_id'=>$studentId, 'teacher_id'=>$teacherId, 'start_date'=>$startDate, 'end_date'=>$endDate), TRUE);
+            FROM in_class_student
+            WHERE student_id LIKE :student_id
+                AND teacher_id LIKE :teacher_id
+                AND start_date LIKE :start_date
+                AND end_date LIKE :end_date";
+
+        $sqlResult = sqlExecute(
+            $sqlCheckExists,
+            array(
+                'student_id'=>$studentId,
+                'teacher_id'=>$teacherId,
+                'start_date'=>$startDate,
+                'end_date'=>$endDate),
+            TRUE);
 
         if($sqlResult[0]["count"] == 0)
         {

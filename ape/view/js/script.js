@@ -18,14 +18,20 @@ function loaded()
    });
 
    $( document ).ajaxError(function( event, jqxhr, settings, thrownError ) {
-    /*console.log(jqxhr.responseText);
+    console.log(jqxhr.responseText);
+    console.log('Event: ', event,
+           'jqxhr: ', jqxhr,
+           'settings: ', settings,
+           'thrown error: ', thrownError);
+    /*
     $(".msg-box").addClass("alert-danger");
     $(".msg-box").fadeIn();
-    $("#msg-box-text").html("<strong>Error!</strong> " + jqxhr.responseText);*/
+    $("#msg-box-text").html("<strong>Error!</strong> " + jqxhr.responseText);
+    */
 
     $.notify({
         title: '<strong>Error</strong>',
-        message: jqxhr.responseText
+        message: jqxhr.responseText + '\n' + thrownError
     },{
         type: 'danger',
         placement: {
@@ -44,6 +50,8 @@ function loaded()
 
 function loadUserInfo(data)
 {
+    console.log(data);
+
     if (data.length == 0)
     {
         _userId = "000";
@@ -74,21 +82,18 @@ function loadUserInfo(data)
         {
             _userType = "Admin";
         }
-        else 
-            if(data.userType.indexOf("Teacher") != -1)
-            {
-                _userType = "Teacher";
-            }
-            else
-                if(data.userType.indexOf("Grader") != -1)
-                {
-                    _userType = "Grader";
-                }
-                else
-                    if(data.userType.indexOf("Student") != -1)
-                    {
-                        _userType = "Student";
-                    }
+        else if(data.userType.indexOf("Teacher") != -1)
+        {
+            _userType = "Teacher";
+        }
+        else if(data.userType.indexOf("Grader") != -1)
+        {
+            _userType = "Grader";
+        }
+        else if(data.userType.indexOf("Student") != -1)
+        {
+            _userType = "Student";
+        }
     }
     init();    
 }
@@ -131,12 +136,6 @@ function onClickSearch(e, input) {
         $rows.show();
     }
 }
-
-// function sortRows() {
-//    $('[data-sorted]').filter(function() {
-//       return $(this).data('sorted') == true;
-//    }).data('sorted', false).trigger('click');
-// }
 
 function onClickSort(th) {
     var parent = $(th.target).parents('.modal').length > 0 ? '.modal' : '.main';
@@ -218,17 +217,13 @@ function toggleSubmitEdit(isReadonly, hideDiscard) {
     $('input, select', '#detail-modal').not('input[type="hidden"]').prop("disabled", isReadonly);
 }
 
-function showErrorMessage(msg)
-{
+/*
+ * These were all left incomplete when we
+ * got the project... may work on these if
+ * we have time.
+ */
+function showErrorMessage(msg) { }
 
-}
+function showInfoMessage(msg) { }
 
-function showInfoMessage(msg)
-{
-
-}
-
-function showWarningMessage(msg)
-{
-    
-}
+function showWarningMessage(msg) { }

@@ -3,8 +3,6 @@
     $_GET["is_client"] = False;
     require_once "../../util/get_cur_user_info.php";
 
-    $userInfo = getCurUserInfo(False);
-
     $page = "user";
     $title = "";
     $tableTitle = "";
@@ -16,14 +14,14 @@
     //Do not change order of exam_student because later scripts will need to overide the init function in exam_student_script.js
     $jsArr = array("../exam/exam_student","user");
 
-    if(in_array("Grader", $userInfo["userType"]) && count($userInfo["userType"]) == 1)
+    if(in_array("Grader", $_SESSION["userTypes"]) && count($_SESSION["userTypes"]) == 1)
     {
         require_once "../includes/error_handler.php";
         loadErrorPage("401");
         die();
     }
     
-    if(in_array("Teacher", $userInfo["userType"]) || in_array("Admin", $userInfo["userType"]))
+    if(in_array("Teacher", $_SESSION["userTypes"]) || in_array("Admin", $_SESSION["userTypes"]))
     {
         if(strcmp($_GET["page"],"admin_user") == 0)
         {

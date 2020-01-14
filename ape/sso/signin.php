@@ -6,17 +6,16 @@
  */
 
 include_once __DIR__ . '/../../vendor/autoload.php';
-// use Google_Client;
 
-/*
 $client = new Google_Client();
 $client->setAuthConfig(__DIR__ . '/../../client_secret.json');
 $client->addScope('openid profile email');
-// $client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . '/oauth2callback.php');
 $client->setRedirectUri('http://localhost:8080/ape/view/home');
+
 // offline access will give you both an access and refresh token so that
 // your app can refresh the access token without user interaction.
 $client->setAccessType('offline');
+
 // Using "consent" ensures that your application always receives a refresh token.
 // If you are not using offline access, you can omit this.
 // $client->setApprovalPrompt("consent");
@@ -26,7 +25,5 @@ $client->setIncludeGrantedScopes(true);   // incremental auth
 $auth_url = $client->createAuthUrl();
 
 $_SESSION['loggedIn'] = true;
-// echo "<h3>" . $auth_url . "</h1>";
 header('Location: ' . filter_var($auth_url, FILTER_SANITIZE_URL));
- */
 ?>
