@@ -4,7 +4,7 @@ session_start();
     {
         $isError = true;
         $errorMsg = "";
-        $page = "home";
+        $_SESSION['page'] = "home";
 
         switch($errorCode)
         {

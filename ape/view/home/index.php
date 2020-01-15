@@ -8,7 +8,6 @@
     require_once "../../util/get_cur_user_info.php";
     include_once __DIR__ . '/../../../vendor/autoload.php';
     use League\OAuth2\Client\Provider\Google;
-    $page = "";
     $jsArr = array();
     $title = "EWU APE Home";
     $_SESSION['userTypes'] = array();
@@ -58,7 +57,8 @@ MLS;
         }
         else
         {
-            $page = "student_home";
+            // $page = "student_home";
+            $_SESSION['page'] = 'student_home';
             require_once "../index.php";
         }
     }
@@ -75,18 +75,18 @@ MLS;
         {
             if($_GET["page"] == "grader_home")
             {
-                $page = "grader_home";
+                $_SESSION['page'] = "grader_home";
                 require_once "../index.php";
             }
             else if($_GET["page"] == "homepage_editor")
             {
-                $page = "admin_home_editor";
+                $_SESSION['page'] = "admin_home_editor";
                 $modalsArr = array("admin_home_editor");
                 require_once "../index.php";
             }
             else
             {
-                $page = "admin_teacher_home";
+                $_SESSION['page'] = "admin_teacher_home";
                 $modalTabsArr = array("../exam/exam", "../exam/roster", "../exam/report");
                 $modalTabsTitles = array("Exam", "Roster", "Report");
                 $modalSize = "large";
@@ -101,18 +101,18 @@ MLS;
         }
         else if(in_array("Grader", $_SESSION["userTypes"]))
         {
-            $page = "grader_home";
+            $_SESSION['page'] = "grader_home";
             require_once "../index.php";
         }
         else if(in_array("Student", $_SESSION["userTypes"]))
         {
-            $page = "admin_home_editor";
+            $_SESSION['page'] = "admin_home_editor";
             $modalsArr = array("admin_home_editor");
             require_once "../index.php";
         }
         else
         {
-            $page = "admin_teacher_home";
+            $_SESSION['page'] = "admin_teacher_home";
             $modalTabsArr = array("../exam/exam", "../exam/roster", "../exam/report");
             $modalTabsTitles = array("Exam", "Roster", "Report");
             $modalSize = "large";
@@ -127,12 +127,12 @@ MLS;
     }
     else if(in_array("Grader", $_SESSION["userTypes"]))
     {
-        $page = "grader_home";
+        $_SESSION['page'] = "grader_home";
         require_once "../index.php";
     }
     else if(in_array("Student", $_SESSION["userTypes"]))
     {
-        $page = "student_home";
+        $_SESSION['page'] = "student_home";
         $modalsArr = array("student_home");
         require_once "../index.php";
     }

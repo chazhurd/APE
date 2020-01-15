@@ -2,8 +2,8 @@
 session_start();
   $projectDirName = "ape";
 
-   if ( !isset($page) ) {
-      $page = "home";
+   if ( !isset($_SESSION['page']) ) {
+      $_SESSION['page'] = "home";
    }
    if ( !isset($title) ) {
       $title = "EWU Advancement Programming Exam";
@@ -12,7 +12,7 @@ session_start();
 
    
    $absPath = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . $projectDirName . DIRECTORY_SEPARATOR . "view";
-   $path = $absPath . DIRECTORY_SEPARATOR . $page . DIRECTORY_SEPARATOR . $page;
+   $path = $absPath . DIRECTORY_SEPARATOR . $_SESSION['page'] . DIRECTORY_SEPARATOR . $_SESSION['page'];
    //$modalPath = $path . "_modal.html";
    $tablePath = $absPath . DIRECTORY_SEPARATOR . "table.php";
    $tabbedTablePath = $absPath . DIRECTORY_SEPARATOR . "tabbedTable.php";
@@ -20,7 +20,7 @@ session_start();
 
 
 
-   if (strstr($page, 'home'))
+   if (strstr($_SESSION['page'], 'home'))
    {
       $path = $absPath . DIRECTORY_SEPARATOR . "home" . DIRECTORY_SEPARATOR;
    }
@@ -84,7 +84,7 @@ session_start();
                 </div>
 
                 <?php 
-                if (strstr($page, 'home')) 
+                if (strstr($_SESSION['page'], 'home')) 
                 {
                     if(isset($isError) && $isError)
                     {
@@ -96,7 +96,7 @@ session_start();
                     {
                         $page = $_GET["page"];
                     }*/
-                    require_once $path . $page . ".html";
+                    require_once $path . $_SESSION['page'] . ".html";
                     }
                     
                 } 
@@ -131,14 +131,14 @@ session_start();
     <?php 
     if (isset($jsArr))
     {
-        if (strstr($page, 'home'))
+        if (strstr($_SESSION['page'], 'home'))
         {
-            ?> <script src="<?php echo "home/" . $page . "_script.js";?>"></script> 
+            ?> <script src="<?php echo "home/" . $_SESSION['page'] . "_script.js";?>"></script> 
         <?php
         }
         foreach($jsArr as $theScript)
         {
-            ?> <script src="<?php echo $page . "/" . $theScript . "_script.js";?>"></script>
+            ?> <script src="<?php echo $_SESSION['page'] . "/" . $theScript . "_script.js";?>"></script>
         <?php
         }
     }  

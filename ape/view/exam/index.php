@@ -1,7 +1,7 @@
 <?php 
     session_start();
     require_once "../../util/get_cur_user_info.php";
-    $page = "exam";
+    $_SESSION['page'] = "exam";
     $title = "EWU APE Exams";
     $tableTitle = "Exams";
     //Strings in $modalsArr are the modal HTML file names minus "_modal.html" E.g. "roster_modal.html" -> "roster"
@@ -21,7 +21,7 @@
     {
         if(in_array("Teacher", $_SESSION["userTypes"]) || in_array("Admin", $_SESSION["userTypes"]))
         {
-            $page = "exam";
+            $_SESSION['page'] = "exam";
             $title = "EWU APE Exams";
             $tableTitle = "Exams";
             $tableTabs = array();
