@@ -38,23 +38,26 @@ session_start();
 
     switch ($request)
     {
-        case ("get_own"): $sqlResult = getOwnAccount($requesterId, $requesterType);
-                         break;
+        case ("get_own"):
+            $sqlResult = getOwnAccount($requesterId, $requesterType);
+            break;
         case ("get_by_id"): //Student and Grader can't request account info other than their own
-                            if(strcmp($requesterType, "Student") == 0 || strcmp($requesterType, "Grader") == 0) 
-                            {
-                                http_response_code(401);
-                                die("Unauthorized access. Your account type can't use this function.");
-                            }
-                            else 
-                            {
-                                $sqlResult = getAccountById();
-                            }
-                            break;
-        case ("get_by_type"): $sqlResult = getAllByType();
-                            break;
-        default: http_response_code(400);
-                echo "Unrecognized request string.";
+            if(strcmp($requesterType, "Student") == 0 || strcmp($requesterType, "Grader") == 0) 
+            {
+                http_response_code(401);
+                die("Unauthorized access. Your account type can't use this function.");
+            }
+            else 
+            {
+                $sqlResult = getAccountById();
+            }
+            break;
+        case ("get_by_type"):
+            $sqlResult = getAllByType();
+            break;
+        default:
+            http_response_code(400);
+            echo "Unrecognized request string.";
     }
 
     echo json_encode($sqlResult);

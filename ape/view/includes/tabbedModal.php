@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <div class="modal fade" id="detail-modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
    
 <!-- Modal Size -->

@@ -685,14 +685,10 @@ function getAllItems(type)
     
     
     $.get("../account/get_account_info.php", 
-        {requester_id: $.cookie('userId'),
-        requester_type: $.cookie('userType'),
-        request: "get_by_type",
-        type: type}, 
-        function(data,asd, xhr){
+        { request: "get_by_type", type: type}, 
+        function(data, asd, xhr){
             loadTable(data, type);
-        },
-        "json");
+        }, "json");
     
         
 }

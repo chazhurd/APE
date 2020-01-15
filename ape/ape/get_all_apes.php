@@ -23,7 +23,7 @@ session_start();
 
 
      //Sanitize the input
-    $request = sanitize_input($request);
+    // $request = sanitize_input($request);
 
     //User authentication
     // user_auth($requesterId, $requesterType, $allowedType);
@@ -33,99 +33,111 @@ session_start();
     switch ($request)
     {
 
-        case ("get_by_id"): $sqlResult = getExamById();
-                            break;
-        case ("get_by_state"): $sqlResult = getExamByState($requesterType, $requesterId);
-                            break;
-        case ("get_all"): $sqlResult = getAllExam($requesterType, $requesterId);
-                            break;
-        case ("get_student_apes"): $sqlResult = getStudentExams($_GET["student_id"]);
-                                    break;
+        case ("get_by_id"):
+            $sqlResult = getExamById();
+            break;
+        case ("get_by_state"):
+            $sqlResult = getExamByState($requesterType, $requesterId);
+            break;
+        case ("get_all"):
+            $sqlResult = getAllExam($requesterType, $requesterId);
+            break;
+        case ("get_student_apes"):
+            $sqlResult = getStudentExams($_GET["student_id"]);
+            break;
         default: http_response_code(400);
-                echo "Unrecognized request string.";
+            echo "Unrecognized request string.";
     }
+    // $sqlResult = sqlExecute('select * from exam where exam_id', array(), true);
     
+    // echo json_encode($sqlResult);
     $final = addRemainingSeats($sqlResult);
     echo json_encode($final);
 
     function getExamById()
     {
-        $examId = sanitize_input($_GET["exam_id"]);
+        // $examId = sanitize_input($_GET["exam_id"]);
         validate_only_numbers($examId);
         $sqlSelectExam = "SELECT exam_id, name, quarter, date, location, state, possible_grade, passing_grade, duration, TIME_FORMAT(start_time, '%h:%i %p') AS start_time, cutoff
         FROM exam
-        WHERE exam_id LIKE :exam_id";
-        return $sqlResult = sqlExecute($sqlSelectExam, array(":exam_id"=>$examId), true);
+        WHERE exam_id LIKE ?";
+        return sqlExecute($sqlSelectExam, array($examId), true);
     }
 
     function getExamByState($requesterType, $requesterId)
     {
-        $state = sanitize_input($_GET["state"]);
-        validate_exam_state($state);
+        // $state = sanitize_input($_GET["state"]);
+        validate_exam_state($_GET['state']);
+        $res = array();
         switch($requesterType)
         {
-            case "Admin":  $sqlSelectExams = "SELECT exam_id, name, quarter, date, location, state, possible_grade, passing_grade, duration, TIME_FORMAT(start_time, '%h:%i %p') AS start_time, cutoff
-                                            FROM exam
-                                            WHERE state LIKE :state";
-                            return sqlExecute($sqlSelectExams, array(":state"=>$state), true);
-                            break;
+            case "Admin":
+                $sqlSelectExams = "SELECT exam_id, name, quarter, date, location, 
+                    state, possible_grade, passing_grade, duration, TIME_FORMAT(start_time, '%h:%i %p') AS start_time, cutoff
+                        FROM exam
+                        WHERE state LIKE ?";
+                $res = sqlExecute($sqlSelectExams, array($state), true);
+                break;
 
-            case "Teacher":  $sqlSelectExams = "SELECT exam_id, name, quarter, date, location, state, possible_grade, passing_grade, duration, TIME_FORMAT(start_time, '%h:%i %p') AS start_time, cutoff
-                                                FROM exam
-                                                INNER JOIN in_class_exam
-                                                USING (exam_id)
-                                                WHERE teacher_id LIKE :teacher_id AND state LIKE :state";
-                            $data = array(':teacher_id' => $requesterId, ":state"=>$state);
-                            return sqlExecute($sqlSelectExams, $data, true);
-                            break;
+            case "Teacher":
+                $sqlSelectExams = "SELECT exam_id, name, quarter, date, location, state, possible_grade, passing_grade,
+                        duration, TIME_FORMAT(start_time, '%h:%i %p') AS start_time, cutoff
+                     FROM exam
+                     INNER JOIN in_class_exam
+                     USING (exam_id)
+                     WHERE teacher_id LIKE ? AND state LIKE ?";
+                $data = array($requesterId, $state);
+                $res = sqlExecute($sqlSelectExams, $data, true);
+                break;
 
             case "000":
-            case "Student": $sqlSelectExams = "SELECT exam_id, name, quarter, date, location, state, possible_grade, passing_grade, duration, TIME_FORMAT(start_time, '%h:%i %p') AS start_time, cutoff,  DATE_SUB(start_time, INTERVAL cutoff hour) AS cutoff_time
-                            FROM exam
-                            WHERE state LIKE :state AND exam.exam_id NOT IN (SELECT exam_id FROM in_class_exam)";
-                            $sqlResult = sqlExecute($sqlSelectExams, array(":state"=>$state), true);
+            case "Student":
+                $sqlSelectExams = "SELECT exam_id, name, quarter, date, location, state, possible_grade, passing_grade,
+                    duration, TIME_FORMAT(start_time, '%h:%i %p') AS start_time, cutoff,  DATE_SUB(start_time, INTERVAL cutoff hour) AS cutoff_time
+                    FROM exam
+                    WHERE state LIKE ? AND exam.exam_id NOT IN (SELECT exam_id FROM in_class_exam)";
+                $res = sqlExecute($sqlSelectExams, array($state), true);
 
-                            for($i=0; $i<count($sqlResult); $i++)
-                            {
-                                date_default_timezone_set('America/Los_Angeles');
-                                $examDate = new DateTime($sqlResult[$i]["date"]);
-                                $examCutoff = strtotime($sqlResult[$i]["cutoff_time"]);
-                        
-                                $today = new DateTime(date("Y-m-d"));
-                                $curHour = strtotime(date("H:i:s"));
-                                //if the exam is today
-                                if(date_diff($today, $examDate)->days == 0)
-                                {
-                                    //if the cutoff time has been reached
-                                    if($curHour >= $examCutoff)
-                                    {
-                                        $sqlResult[$i]["reg_closed"] = 1;
-                                    }
-                                }
-                                else {
-                                    $sqlResult[$i]["reg_closed"] = 0;
-                                }
-                            }
+                for($i=0; $i<count($res); $i++)
+                {
+                    date_default_timezone_set('America/Los_Angeles');
+                    $examDate = new DateTime($res[$i]["date"]);
+                    $examCutoff = strtotime($res[$i]["cutoff_time"]);
+                
+                    $today = new DateTime(date("Y-m-d"));
+                    $curHour = strtotime(date("H:i:s"));
+                    //if the exam is today
+                    if(date_diff($today, $examDate)->days == 0)
+                    {
+                        //if the cutoff time has been reached
+                        if($curHour >= $examCutoff)
+                        {
+                            $res[$i]["reg_closed"] = 1;
+                        }
+                    }
+                    else {
+                        $res[$i]["reg_closed"] = 0;
+                    }
+                }
 
-                            return $sqlResult;
-                            break;
+                break;
         }
-           
-
-        
+        return $res;
     }
 
     function getAllExam($requesterType, $requesterId)
     {
         switch ($requesterType)
         {
-            case "Teacher": return getTeacherExams($requesterType, $requesterId);
-                            break;
-            case "Student": return getStudentExams($requesterId);
-                            break;
-            case "Admin": return $sqlResult = sqlExecute("SELECT exam_id, name, quarter, date, location, state, possible_grade, passing_grade, duration, TIME_FORMAT(start_time, '%h:%i %p') AS start_time, cutoff FROM exam", array(), true);
-                            break;
-        
+            case "Teacher":
+                return getTeacherExams($requesterType, $requesterId);
+                break;
+            case "Student":
+                return getStudentExams($requesterId);
+                break;
+            case "Admin":
+                return $sqlResult = sqlExecute("SELECT exam_id, name, quarter, date, location, state, possible_grade, passing_grade, duration, TIME_FORMAT(start_time, '%h:%i %p') AS start_time, cutoff FROM exam", array(), true);
+                break;
         }
     }
 

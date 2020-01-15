@@ -1,4 +1,5 @@
 <?php
+session_start();
     function loadErrorPage ($errorCode)
     {
         $isError = true;

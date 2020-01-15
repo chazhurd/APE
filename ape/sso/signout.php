@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * Sign in with EWU SSO
  * @author Team APE 2013-2014, Tu Nguyen 2017
@@ -22,8 +23,10 @@ phpCAS::forceAuthentication();
 $_SESSION['loggedIn'] = false;
 // unset($_SESSION['phpCAS']);
 unset($_SESSION['ewuid']);
+session_destroy();
 
 $projectDirName = "ape";
 $absPath = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . $projectDirName . DIRECTORY_SEPARATOR . "view" . DIRECTORY_SEPARATOR . "home";
+header("Location: http://localhost:8080/ape/view/home");
 
 ?>

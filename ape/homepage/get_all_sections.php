@@ -23,25 +23,27 @@
     // $request = sanitize_input($request);
 
 	//User authentication
-	user_auth($requesterId, $requesterType, $allowedType);
+	// user_auth($requesterId, $requesterType, $allowedType);
 	
     switch ($request)
     {
 
-        case ("get_by_id"): $id = $_GET["content_id"];
-                            $id = sanitize_input($id);
-                            validate_only_numbers($id);
-
-                            $sqlResult = getSectionById($id);
-                            break;
-        case ("get_all"): $sqlResult = getAllSections();
-                            break;
-        default: http_response_code(400);
-                echo "Unrecognized request string.";
+        case ("get_by_id"):
+            $id = $_GET["content_id"];
+            $id = sanitize_input($id);
+            validate_only_numbers($id);
+            $sqlResult = getSectionById($id);
+            break;
+        case ("get_all"):
+            $sqlResult = getAllSections();
+            break;
+        default:
+            http_response_code(400);
+            echo "Unrecognized request string.";
     }
     
-    echo json_encode($sqlResult, JSON_HEX_QUOT | JSON_HEX_TAG);
-
+    // echo json_encode($sqlResult, JSON_HEX_QUOT | JSON_HEX_TAG);
+    echo json_encode($sqlResult);
 
     function getSectionById($id)
     {

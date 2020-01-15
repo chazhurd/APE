@@ -1,4 +1,5 @@
 <?php
+session_start();
 
     $_GET["is_client"] = False;
     require_once $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . $projectDirName . DIRECTORY_SEPARATOR . "util" . DIRECTORY_SEPARATOR . "get_cur_user_info.php";
