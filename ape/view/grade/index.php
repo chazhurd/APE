@@ -6,7 +6,7 @@ require_once "../../util/get_cur_user_info.php";
 
 if(in_array("Grader", $_SESSION["userTypes"]))
 {
-    $_SESSION['page'] = "grade";
+    $page = "grade";
     $title = "EWU APE Grading";
     $tableTitle = "Assigned APE Sections";
     //Strings in $modalsArr are the modal HTML file names minus "_modal.html" E.g. "roster_modal.html" -> "roster"

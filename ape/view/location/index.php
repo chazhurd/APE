@@ -5,7 +5,7 @@ require_once "../../util/get_cur_user_info.php";
 
 if(in_array("Admin", $_SESSION["userTypes"]) || in_array("Teacher", $_SESSION["userTypes"]))
 {
-    $_SESSION['page'] = "location";
+    $page = "location";
     $title = "EWU APE Locations";
     $tableTitle = "Locations";
     //Strings in $modalsArr are the modal HTML file names minus "_modal.html" E.g. "roster_modal.html" -> "roster"

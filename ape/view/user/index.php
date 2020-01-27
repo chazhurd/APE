@@ -3,7 +3,7 @@
     $_GET["is_client"] = False;
     require_once "../../util/get_cur_user_info.php";
 
-    $_SESSION['page'] = "user";
+    $page = "user";
     $title = "";
     $tableTitle = "";
     

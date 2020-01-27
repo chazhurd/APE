@@ -5,7 +5,7 @@ require_once "../../util/get_cur_user_info.php";
 
 if(in_array("Admin", $_SESSION["userTypes"]))
 {
-    $_SESSION['page'] = "settings";
+    $page = "settings";
     $title = "EWU APE Administrator Configurations";
     $tableTitle = "Configurations";
     //Strings in $jsArr are the JS file names minus "_script.js" E.g. "exam_student_script.js" -> "exam_student"

@@ -1,5 +1,5 @@
-<?php session_start(); ?>
 <div class="panel panel-default">
+session_start();
    <div class="panel-heading">
       <h4 class="panel-title"><strong><?php echo $tableTitle; ?></strong></h4>
    </div>
@@ -9,7 +9,7 @@
          <div class="form-inline">
             <button type="button" class="btn btn-primary pull-left btn-labeled" data-toggle="modal" data-target="#detail-modal" id="create-button">
                <span class="btn-label" aria-hidden="true"><i class="glyphicon glyphicon-plus"></i></span>
-               Create <?php echo ucfirst($_SESSION['page']); ?>
+               Create <?php echo ucfirst($page); ?>
             </button>
             <div class="form-group has-feedback pull-right">
                <div class="input-group">
