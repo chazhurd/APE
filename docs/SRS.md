@@ -92,7 +92,7 @@ It will allow students to register for APEs, unregister for APEs, and view their
 The software will allow graders to submit and edit grades unbiasedly for said exams.
 It will also allow teachers to do their own APE for their CSCD 211 classes; they will be able to upload their student roster to automatically register the whole class, and grade the APEs. The Teacher will also e able to generate and export reports on the exams in CSV format.
 Admins will be permitted to manually add and remove all types of accounts, view grades, publish exams, and generate reports.
-Our team will be expanding upon the work of the previous group and will eventually be cloud hosted to help the department's budget.
+Our team will be expanding upon the work of the previous group and the site will be cloud hosted to help the department's budget.
 
 ### 1.5 References
 The current version of this software which this project intends to improve and replace can be found
@@ -123,16 +123,16 @@ interface in which they can administer the APE in a smooth manner.
 - OE1: 
     - The system will have compatibility with Microsoft Internet Explorer, Microsoft Edge, Google Chrome, Mozilla Firefox, and Apple Safari.
 - OE2: 
-    - The system will operate on a development server provided by the Computer Science Department with the following environment configuration until a cloud hosting solution is developed:
+    - The system will operate on a development server provided by the Computer Science Department with the following environment configuration until a AWS cloud hosting solution is developed:
     - PHP 5.6.x
     - Apache 2.4.x
-    - MariaDB 10.1.x
+    - MySQL 8.X
 - OE3:
     - The system will allow user access through any internet connected computer.
 
 ### 2.4 Design and Implementation Constraints
 - CO1: 
-    - The system shall use MariaDB 10.1.x as its database.
+    - The system shall use MySQL 8.X as its database.
 - CO2:
     - The scripts written for the system shall be in PHP 5 or JavaScript with jQuery library usage.  
 - CO3: 
@@ -151,7 +151,7 @@ interface in which they can administer the APE in a smooth manner.
 - DE1: 
     - The system is dependent on a consistent internet connection in which the server is connected to.
 - DE2: 
-    - The system is dependent on multiple types of tools such as, PHP, JavaScript, MariaDB, and Apache.  
+    - The system is dependent on multiple types of tools such as, PHP, JavaScript, MySQL, and Apache.  
 - DE3: 
     - The system is dependent on a database server, in which information will be stored and retrieved from.
 
@@ -261,10 +261,12 @@ The teacher will be able to make edits to final pass/fail grades if the student�
 The administrator has the ability to override any decisions made by the teacher when it comes to grades and passing/failing students.
 Once the administrator makes edits, the teacher cannot reverse those changes.
 
-### 3.4.4 This account type will have the ability to create, view, and download reports from the system. The system will be able to generate reports with the information specified by the Teacher. There will be Reports Section that the Teacher can select like the following:
-- Add ‘Generate Yearly Reports’ to Reports Section. (Students who completed the ape, what the pass rate is, what the average score per year is and the avg for each quarter individually)
-- Add ‘Number of Attempts Report’ to Reports Section and their respective scores.
-- Add ‘Export’ functionality that would generate a Report in CSV format.
+### 3.4.4 This account type will have the ability to create, view, and download reports from the system. The system will be able to generate reports with the information specified by the Teacher. There will be a Reports Section such that the Teacher can select the following:
+- ‘Generate Yearly Reports’ in Reports Section. Students who completed the ape, what the pass rate is, what the average score per academic year or date range is and the average for each quarter individually
+- 'All Failed Students Report' function where all the Students that have failed and the number of times they have failed.
+- ‘Number of Attempts Report’ function that generates a number of attempts a Student that and their respective scores. 
+- 'Third Try Report' function that will present the Students who have taken the APE 3 times showing dates and scores, earliest to latest. 
+- ‘Export’ functionality that would generate a Report in CSV format.
 
 ### 3.5 Administrator
 There can only be a maximum 2 of this account type. With this account, the user has ultimate control
@@ -401,12 +403,12 @@ change the student’s state.
 ## External Interface Requirements
 
 ### 6.1 Hardware Interfaces
-The system will live on a web server owned by Eastern Washington University.
+The system will live on a remote web server owned by Amazon.
 
 ### 6.2 Software Interfaces
 The server will be an Apache 2.4.x web server. The web pages will be written using PHP 5.6.x along with
 JavaScript with the jQuery library
-The system will use a MariaDB 10.1.x server to store use information and grades.
+The system will use a MySQL server to store use information and grades.
 The system will use Eastern Washington University’s SSO to get student information.
 
 ### 6.3
